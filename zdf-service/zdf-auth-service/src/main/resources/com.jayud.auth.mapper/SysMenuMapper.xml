@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdf.auth.mapper.SysMenuMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zdf.auth.model.po.SysMenu">
+        <id column="id" property="id" />
+        <result column="parent_id" property="parentId" />
+        <result column="title" property="title" />
+        <result column="level" property="level" />
+        <result column="sort" property="sort" />
+        <result column="name" property="name" />
+        <result column="code" property="code" />
+        <result column="icon" property="icon" />
+        <result column="hidden" property="hidden" />
+        <result column="router" property="router" />
+        <result column="type" property="type" />
+        <result column="is_route" property="isRoute" />
+        <result column="is_leaf" property="isLeaf" />
+        <result column="is_button" property="isButton" />
+        <result column="is_approve" property="isApprove" />
+        <result column="sys_type" property="sysType" />
+        <result column="remark" property="remark" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="update_by" property="updateBy" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, parent_id, title, level, sort, name, code, icon, hidden, router, type, is_route, is_leaf, is_button, is_approve,sys_type, remark, is_deleted, create_by, create_time, update_by, update_time
+    </sql>
+
+
+    <!-- 表名 -->
+    <sql id="tname">sys_menu </sql>
+
+    <select id="selectSysMenuByRoleIds" resultType="com.zdf.auth.model.po.SysMenu">
+        select sm.* from sys_menu sm
+        join sys_role_menu srm on sm.id = srm.menu_id and srm.is_deleted = 0
+        join sys_role sr on srm.role_id = sr.id and sr.is_deleted = 0
+        where 1=1
+        and sm.is_deleted = 0
+        and sm.is_button = 0
+        <if test="roleIds!=null and roleIds.size()>0">
+            and sr.id in
+            <foreach item="item" index="index" collection="roleIds" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        GROUP BY sm.id
+        ORDER BY sm.sort asc
+
+    </select>
+    <select id="selectSysMenuByMenuCodes" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM <include refid="tname"/>
+        <where>
+            is_deleted = 0
+            <if test="menuCodeList!=null and menuCodeList.size()>0">
+                AND `code` IN
+                <foreach item="item" index="index" collection="menuCodeList" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="allMenuTree" resultType="com.zdf.auth.model.po.SysMenu">
+        select sm.* from sys_menu sm
+        where 1=1
+        and sm.is_deleted = 0
+        <if test="sysMenu.title != null and sysMenu.title != ''">
+            sm.title like concat('%',#{sysMenu.title},'%')
+        </if>
+        <if test="sysMenu.inSysTypeList!=null and sysMenu.inSysTypeList.size()>0">
+            AND sm.`sys_type` IN
+            <foreach item="item" index="index" collection="sysMenu.inSysTypeList" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        GROUP BY sm.id
+        ORDER BY sm.sort asc
+    </select>
+
+    <select id="pageList" resultType="com.zdf.auth.model.po.SysMenu">
+        select sm.* from sys_menu sm
+        where 1=1
+        and sm.is_deleted = 0
+        <if test="sysMenu.parentId != null">
+            and sm.parent_id = #{sysMenu.parentId}
+        </if>
+        <if test="sysMenu.title != null and sysMenu.title != ''">
+            and sm.title like concat('%',#{sysMenu.title},'%')
+        </if>
+        <if test="sysMenu.code != null and sysMenu.code != ''">
+            and sm.code like concat('%',#{sysMenu.code},'%')
+        </if>
+        <if test="sysMenu.childrenIds!=null and sysMenu.childrenIds.size()>0">
+            AND sm.`id` IN
+            <foreach item="item" index="index" collection="sysMenu.childrenIds" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="exportSysMenu" resultType="java.util.LinkedHashMap">
+        select
+        sm.title as 'title',
+        sm.code as 'code',
+        sm.icon as 'icon',
+        sm.router as 'router',
+        sm.sort as 'sort',
+        case when sm.status = 0 then '显示'
+        when sm.status = 1 then '隐藏'
+        end as 'status'
+        from sys_menu sm
+        where 1=1
+        and sm.is_deleted = 0
+        <if test="sysMenu.parentId != null">
+            and sm.parent_id = #{sysMenu.parentId}
+        </if>
+        <if test="sysMenu.title != null and sysMenu.title != ''">
+            and sm.title like concat('%',#{sysMenu.title},'%')
+        </if>
+
+    </select>
+
+    <!--查询菜单id的所有子集菜单-->
+    <select id="selectMenuChildren" resultType="com.zdf.auth.model.po.SysMenu">
+        select id,title from (
+            select
+            t1.id,
+            t1.title,
+            if(find_in_set(parent_id, @pids) > 0, @pids := concat(@pids, ',', id), 0) as ischild
+            from (
+                select
+                id,
+                parent_id,
+                title
+                from sys_menu t order by parent_id, id
+            ) t1,
+            (select @pids := #{menuId}) t2
+        ) t3 where ischild != 0
+    </select>
+
+    <select id="selectSysMenuBtnByRoleIds" resultType="com.zdf.auth.model.po.SysMenu">
+        select sm.* from sys_menu sm
+        join sys_role_menu srm on sm.id = srm.menu_id and srm.is_deleted = 0
+        join sys_role sr on srm.role_id = sr.id and sr.is_deleted = 0
+        where 1=1
+        and sm.is_deleted = 0
+        <if test="roleIds!=null and roleIds.size()>0">
+            and sr.id in
+            <foreach item="item" index="index" collection="roleIds" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        GROUP BY sm.id
+        ORDER BY sm.sort asc
+    </select>
+
+    <select id="allCheckMenuTree" resultType="com.zdf.auth.model.po.SysMenu">
+        select sm.* from sys_menu sm
+        where sm.is_button = 1 and sm.is_approve = 1
+        and sm.is_deleted = 0
+    </select>
+
+    <select id="allMenu" resultType="com.zdf.auth.model.po.SysMenu">
+        select sm.* from sys_menu sm
+        where sm.is_button = 0
+        and sm.is_deleted = 0
+    </select>
+
+    <select id="getAllMenuBySysType" resultType="long">
+        select sm.id from sys_menu sm where sm.is_deleted = 0
+        AND sys_type IN
+        <foreach item="id" collection="delIdList" open="(" separator="," close=")">
+            ${id}
+        </foreach>
+    </select>
+
+</mapper>

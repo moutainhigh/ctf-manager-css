@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdf.auth.mapper.SysRoleActionCheckMapper">
+
+    <!-- 通用查询映射结果ss -->
+    <resultMap id="BaseResultMap" type="com.zdf.auth.model.po.SysRoleActionCheck">
+        <id column="id" property="id" />
+        <result column="role_id" property="roleId" />
+        <result column="action_id" property="actionId" />
+        <result column="action_code" property="actionCode" />
+        <result column="check_level" property="checkLevel" />
+        <result column="check_money" property="checkMoney" />
+        <result column="remark" property="remark" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="update_by" property="updateBy" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_deleted" property="isDeleted" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+            id, role_id, action_id, action_code, check_level, check_money, remark, create_by, create_time, update_by, update_time, is_deleted
+    </sql>
+
+    <!-- 表名 -->
+    <sql id="tname">sys_role_action_check </sql>
+
+    <sql id="selects">
+        SELECT <include refid="Base_Column_List"/>
+        FROM <include refid="tname"/>
+        <where>
+            is_deleted = 0
+            <if test="sysRoleActionCheck.roleId != null ">
+                AND role_id = ${sysRoleActionCheck.roleId}
+            </if>
+
+            <if test="sysRoleActionCheck.actionId != null ">
+                AND action_id = ${sysRoleActionCheck.actionId}
+            </if>
+
+            <if test="sysRoleActionCheck.actionCode != null and sysRoleActionCheck.actionCode != ''">
+                AND action_code LIKE CONCAT('%',#{sysRoleActionCheck.actionCode},'%')
+            </if>
+
+            <if test="sysRoleActionCheck.checkLevel != null ">
+                AND check_level = ${sysRoleActionCheck.checkLevel}
+            </if>
+
+            <if test="sysRoleActionCheck.checkMoney != null ">
+                AND check_money = ${sysRoleActionCheck.checkMoney}
+            </if>
+
+            <if test="sysRoleActionCheck.remark != null and sysRoleActionCheck.remark != ''">
+                AND remark LIKE CONCAT('%',#{sysRoleActionCheck.remark},'%')
+            </if>
+
+            <if test="sysRoleActionCheck.createBy != null ">
+                AND create_by = ${sysRoleActionCheck.createBy}
+            </if>
+
+            <if test="sysRoleActionCheck.createTime != null ">
+                AND create_time = ${sysRoleActionCheck.createTime}
+            </if>
+
+            <if test="sysRoleActionCheck.updateBy != null ">
+                AND update_by = ${sysRoleActionCheck.updateBy}
+            </if>
+
+            <if test="sysRoleActionCheck.updateTime != null ">
+                AND update_time = ${sysRoleActionCheck.updateTime}
+            </if>
+
+        </where>
+    </sql>
+
+    <select id="pageList" resultType="com.zdf.auth.model.vo.SysRoleActionCheckVO" parameterType="com.zdf.auth.model.bo.QueryForm">
+        SELECT  s.id, s.role_id roleId, s.action_id actionId, s.action_code actionCode, s.check_level checkLevel,
+        s.check_money checkMoney, s.remark, s.create_by createBy, s.create_time createTime, s.update_by updateBy, s.update_time updateTime, s.is_deleted isDeleted,
+        sr.role_name roleName,sm.title actionName,s.tenant_code tenantCode
+        FROM sys_role_action_check s
+        left join sys_menu sm on s.action_id = sm.id and sm.is_deleted = 0
+        left join sys_role sr on s.role_id = sr.id and sr.is_deleted = 0
+        <where>
+            s.is_deleted = 0
+            <if test="form.key != null and form.key != ''">
+                and
+                <if test="form.key == 'actionCode' ">
+                    s.action_code like concat('%',#{form.condition},'%')
+                </if>
+                <if test="form.key == 'name' ">
+                    sr.role_name like concat('%',#{form.condition},'%')
+                </if>
+                <if test="form.tenantCode != null and form.tenantCode != ''">
+                    AND s.tenant_code = #{form.tenantCode}
+                </if>
+            </if>
+<!--            <if test="sysRoleActionCheck.roleId != null ">-->
+<!--                AND s.role_id = ${sysRoleActionCheck.roleId}-->
+<!--            </if>-->
+
+<!--            <if test="sysRoleActionCheck.actionId != null ">-->
+<!--                AND s.action_id = ${sysRoleActionCheck.actionId}-->
+<!--            </if>-->
+
+<!--            <if test="sysRoleActionCheck.actionCode != null and sysRoleActionCheck.actionCode != ''">-->
+<!--                AND s.action_code LIKE CONCAT('%',#{sysRoleActionCheck.actionCode},'%')-->
+<!--            </if>-->
+
+<!--            <if test="sysRoleActionCheck.checkLevel != null ">-->
+<!--                AND s.check_level = ${sysRoleActionCheck.checkLevel}-->
+<!--            </if>-->
+
+<!--            <if test="sysRoleActionCheck.checkMoney != null ">-->
+<!--                AND s.check_money = ${sysRoleActionCheck.checkMoney}-->
+<!--            </if>-->
+
+<!--            <if test="sysRoleActionCheck.remark != null and sysRoleActionCheck.remark != ''">-->
+<!--                AND s.remark LIKE CONCAT('%',#{sysRoleActionCheck.remark},'%')-->
+<!--            </if>-->
+
+<!--            <if test="sysRoleActionCheck.createBy != null ">-->
+<!--                AND s.create_by = ${sysRoleActionCheck.createBy}-->
+<!--            </if>-->
+
+<!--            <if test="sysRoleActionCheck.createTime != null ">-->
+<!--                AND s.create_time = ${sysRoleActionCheck.createTime}-->
+<!--            </if>-->
+
+<!--            <if test="sysRoleActionCheck.updateBy != null ">-->
+<!--                AND s.update_by = ${sysRoleActionCheck.updateBy}-->
+<!--            </if>-->
+
+<!--            <if test="sysRoleActionCheck.updateTime != null ">-->
+<!--                AND s.update_time = ${sysRoleActionCheck.updateTime}-->
+<!--            </if>-->
+
+        </where>
+    </select>
+
+    <select id="list" resultMap="BaseResultMap" parameterType="com.zdf.auth.model.bo.QueryForm">
+        <include refid="selects"/>
+    </select>
+
+
+
+
+    <delete id="phyDelById">
+        DELETE FROM  sys_role_action_check WHERE id = ${id}
+    </delete>
+
+    <update id="logicDel">
+        UPDATE sys_role_action_check SET is_deleted = 1 ,update_by = #{username}, update_time = now()
+        WHERE is_deleted = 0 AND id in
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+         #{item}
+        </foreach>
+
+    </update>
+
+    <select id="querySysRoleActionCheckForExcel" resultType="java.util.LinkedHashMap">
+        SELECT
+            id 'id',
+            role_id 'roleId',
+            action_id 'actionId',
+            action_code 'actionCode',
+            check_level 'checkLevel',
+            check_money 'checkMoney',
+            remark 'remark',
+            create_by 'createBy',
+            create_time 'createTime',
+            update_by 'updateBy',
+            update_time 'updateTime',
+            mdy_by_dtm 'mdyByDtm',
+            is_deleted 'isDeleted'
+        FROM sys_role_action_check
+        WHERE is_deleted = 0
+                    <if test="roleId != null ">
+                        AND role_id = #{roleId}
+                    </if>
+                    <if test="actionId != null ">
+                        AND action_id = #{actionId}
+                    </if>
+                    <if test="actionCode != null and actionCode != ''">
+                        AND action_code LIKE CONCAT('%',#{actionCode}, '%')
+                    </if>
+                    <if test="checkLevel != null ">
+                        AND check_level = #{checkLevel}
+                    </if>
+                    <if test="checkMoney != null ">
+                        AND check_money = #{checkMoney}
+                    </if>
+                    <if test="remark != null and remark != ''">
+                        AND remark LIKE CONCAT('%',#{remark}, '%')
+                    </if>
+                    <if test="sysRoleActionCheck.createBy != null ">
+                        AND s.create_by = ${sysRoleActionCheck.createBy}
+                    </if>
+
+                    <if test="sysRoleActionCheck.createTime != null ">
+                        AND s.create_time = ${sysRoleActionCheck.createTime}
+                    </if>
+
+                    <if test="sysRoleActionCheck.updateBy != null ">
+                        AND s.update_by = ${sysRoleActionCheck.updateBy}
+                    </if>
+
+                    <if test="sysRoleActionCheck.updateTime != null ">
+                        AND s.update_time = ${sysRoleActionCheck.updateTime}
+                    </if>
+
+    </select>
+
+    <select id="getList" resultType="com.zdf.auth.model.vo.SysRoleActionCheckVO">
+        select *
+        from sys_role_action_check srac
+        where srac.is_deleted = 0 and srac.action_code = #{menuCode}
+        GROUP BY check_level
+    </select>
+
+    <select id="getListByCheckLevelAndMenuCode" resultType="com.zdf.auth.model.vo.SysRoleActionCheckVO">
+        select srac.*,sr.role_name roleName
+        from sys_role_action_check srac
+        left join sys_role sr on srac.role_id = sr.id and sr.is_deleted = 0
+        where srac.is_deleted = 0 and srac.action_code = #{menuCode} and srac.check_level = #{checkLevel}
+    </select>
+
+</mapper>
