@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctf.auth.mapper.ReportsMapper">
+
+    <!-- 通用查询映射结果ss -->
+    <resultMap id="BaseResultMap" type="com.ctf.auth.model.po.Reports">
+        <id column="id" property="id" />
+        <result column="mod_id" property="modId" />
+        <result column="mod_name" property="modName" />
+        <result column="rpt_name" property="rptName" />
+        <result column="rpt_path" property="rptPath" />
+        <result column="rpt_file_name" property="rptFileName" />
+        <result column="para_num" property="paraNum" />
+        <result column="proc_name" property="procName" />
+        <result column="direction_flag" property="directionFlag" />
+        <result column="is_child_flag" property="isChildFlag" />
+        <result column="para_str" property="paraStr" />
+        <result column="menu_id" property="menuId" />
+        <result column="menu_code" property="menuCode" />
+        <result column="remark" property="remark" />
+        <result column="org_id" property="orgId" />
+        <result column="tenant_id" property="tenantId" />
+        <result column="tenant_code" property="tenantCode" />
+        <result column="create_user_id" property="createUserId" />
+        <result column="create_by" property="createBy" />
+        <result column="create_time" property="createTime" />
+        <result column="update_id" property="updateId" />
+        <result column="update_by" property="updateBy" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="deleted_user_id" property="deletedUserId" />
+        <result column="delete_user_name" property="deleteUserName" />
+        <result column="delete_time" property="deleteTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+            id, mod_id, mod_name, rpt_name, rpt_path, rpt_file_name, para_num, proc_name, direction_flag, is_child_flag, para_str, menu_id, menu_code, remark, org_id, tenant_id, tenant_code, create_user_id, create_by, create_time, update_id, update_by, update_time, is_deleted, deleted_user_id, delete_user_name, delete_time
+    </sql>
+
+    <!-- 表名 -->
+    <sql id="tname">reports </sql>
+
+    <sql id="selects">
+        SELECT <include refid="Base_Column_List"/>
+        FROM <include refid="tname"/>
+        <where>
+            is_deleted = 0
+            <if test="reports.modId != null ">
+                AND mod_id = ${reports.modId}
+            </if>
+
+            <if test="reports.modName != null and reports.modName != ''">
+                AND mod_name LIKE CONCAT('%',#{reports.modName},'%')
+            </if>
+
+            <if test="reports.rptName != null and reports.rptName != ''">
+                AND rpt_name LIKE CONCAT('%',#{reports.rptName},'%')
+            </if>
+
+            <if test="reports.rptPath != null and reports.rptPath != ''">
+                AND rpt_path LIKE CONCAT('%',#{reports.rptPath},'%')
+            </if>
+
+            <if test="reports.rptFileName != null and reports.rptFileName != ''">
+                AND rpt_file_name LIKE CONCAT('%',#{reports.rptFileName},'%')
+            </if>
+
+            <if test="reports.paraNum != null ">
+                AND para_num = ${reports.paraNum}
+            </if>
+
+            <if test="reports.procName != null and reports.procName != ''">
+                AND proc_name LIKE CONCAT('%',#{reports.procName},'%')
+            </if>
+
+            <if test="reports.directionFlag != null and reports.directionFlag != ''">
+                AND direction_flag LIKE CONCAT('%',#{reports.directionFlag},'%')
+            </if>
+
+            <if test="reports.isChildFlag != null and reports.isChildFlag != ''">
+                AND is_child_flag LIKE CONCAT('%',#{reports.isChildFlag},'%')
+            </if>
+
+            <if test="reports.paraStr != null and reports.paraStr != ''">
+                AND para_str LIKE CONCAT('%',#{reports.paraStr},'%')
+            </if>
+
+            <if test="reports.menuId != null ">
+                AND menu_id = ${reports.menuId}
+            </if>
+
+            <if test="reports.menuCode != null and reports.menuCode != ''">
+                AND menu_code LIKE CONCAT('%',#{reports.menuCode},'%')
+            </if>
+
+            <if test="reports.remark != null and reports.remark != ''">
+                AND remark LIKE CONCAT('%',#{reports.remark},'%')
+            </if>
+
+            <if test="reports.orgId != null ">
+                AND org_id = ${reports.orgId}
+            </if>
+
+            <if test="reports.tenantId != null ">
+                AND tenant_id = ${reports.tenantId}
+            </if>
+
+            <if test="reports.tenantCode != null and reports.tenantCode != ''">
+                AND tenant_code LIKE CONCAT('%',#{reports.tenantCode},'%')
+            </if>
+
+            <if test="reports.createUserId != null ">
+                AND create_user_id = ${reports.createUserId}
+            </if>
+
+            <if test="reports.updateId != null ">
+                AND update_id = ${reports.updateId}
+            </if>
+
+            <if test="reports.deletedUserId != null ">
+                AND deleted_user_id = ${reports.deletedUserId}
+            </if>
+
+            <if test="reports.deleteUserName != null and reports.deleteUserName != ''">
+                AND delete_user_name LIKE CONCAT('%',#{reports.deleteUserName},'%')
+            </if>
+
+            <if test="reports.deleteTime != null ">
+                AND delete_time = ${reports.deleteTime}
+            </if>
+
+        </where>
+    </sql>
+
+    <select id="pageList" resultMap="BaseResultMap" parameterType="com.ctf.auth.model.po.Reports">
+        <include refid="selects"/>
+    </select>
+
+    <select id="list" resultMap="BaseResultMap" parameterType="com.ctf.auth.model.po.Reports">
+        <include refid="selects"/>
+    </select>
+
+
+
+
+    <delete id="phyDelById">
+        DELETE FROM  reports WHERE id = ${id}
+    </delete>
+
+    <update id="logicDel">
+        UPDATE reports SET is_deleted = 1 ,update_by = #{username}, update_time = now()
+        WHERE id = ${id} AND is_deleted = 0
+    </update>
+
+    <select id="queryReportsForExcel" resultType="java.util.LinkedHashMap">
+        SELECT
+            id 'id',
+            mod_id 'modId',
+            mod_name 'modName',
+            rpt_name 'rptName',
+            rpt_path 'rptPath',
+            rpt_file_name 'rptFileName',
+            para_num 'paraNum',
+            proc_name 'procName',
+            direction_flag 'directionFlag',
+            is_child_flag 'isChildFlag',
+            para_str 'paraStr',
+            menu_id 'menuId',
+            menu_code 'menuCode',
+            remark 'remark',
+            org_id 'orgId',
+            tenant_id 'tenantId',
+            tenant_code 'tenantCode',
+            create_user_id 'createUserId',
+            create_by 'createBy',
+            create_time 'createTime',
+            update_id 'updateId',
+            update_by 'updateBy',
+            update_time 'updateTime',
+            is_deleted 'isDeleted',
+            deleted_user_id 'deletedUserId',
+            delete_user_name 'deleteUserName',
+            delete_time 'deleteTime'
+        FROM reports
+        WHERE is_deleted = 0
+                    <if test="modId != null ">
+                        AND mod_id = #{modId}
+                    </if>
+                    <if test="modName != null and modName != ''">
+                        AND mod_name LIKE CONCAT('%',#{modName}, '%')
+                    </if>
+                    <if test="rptName != null and rptName != ''">
+                        AND rpt_name LIKE CONCAT('%',#{rptName}, '%')
+                    </if>
+                    <if test="rptPath != null and rptPath != ''">
+                        AND rpt_path LIKE CONCAT('%',#{rptPath}, '%')
+                    </if>
+                    <if test="rptFileName != null and rptFileName != ''">
+                        AND rpt_file_name LIKE CONCAT('%',#{rptFileName}, '%')
+                    </if>
+                    <if test="paraNum != null ">
+                        AND para_num = #{paraNum}
+                    </if>
+                    <if test="procName != null and procName != ''">
+                        AND proc_name LIKE CONCAT('%',#{procName}, '%')
+                    </if>
+                    <if test="directionFlag != null and directionFlag != ''">
+                        AND direction_flag LIKE CONCAT('%',#{directionFlag}, '%')
+                    </if>
+                    <if test="isChildFlag != null and isChildFlag != ''">
+                        AND is_child_flag LIKE CONCAT('%',#{isChildFlag}, '%')
+                    </if>
+                    <if test="paraStr != null and paraStr != ''">
+                        AND para_str LIKE CONCAT('%',#{paraStr}, '%')
+                    </if>
+                    <if test="menuId != null ">
+                        AND menu_id = #{menuId}
+                    </if>
+                    <if test="menuCode != null and menuCode != ''">
+                        AND menu_code LIKE CONCAT('%',#{menuCode}, '%')
+                    </if>
+                    <if test="remark != null and remark != ''">
+                        AND remark LIKE CONCAT('%',#{remark}, '%')
+                    </if>
+                    <if test="orgId != null ">
+                        AND org_id = #{orgId}
+                    </if>
+                    <if test="tenantId != null ">
+                        AND tenant_id = #{tenantId}
+                    </if>
+                    <if test="tenantCode != null and tenantCode != ''">
+                        AND tenant_code LIKE CONCAT('%',#{tenantCode}, '%')
+                    </if>
+                    <if test="createUserId != null ">
+                        AND create_user_id = #{createUserId}
+                    </if>
+                    <if test="updateId != null ">
+                        AND update_id = #{updateId}
+                    </if>
+                    <if test="deletedUserId != null ">
+                        AND deleted_user_id = #{deletedUserId}
+                    </if>
+                    <if test="deleteUserName != null and deleteUserName != ''">
+                        AND delete_user_name LIKE CONCAT('%',#{deleteUserName}, '%')
+                    </if>
+                    <if test="deleteTime != null ">
+                        AND delete_time = #{deleteTime}
+                    </if>
+
+    </select>
+
+</mapper>
