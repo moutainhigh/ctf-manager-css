@@ -5,7 +5,7 @@ pipeline {
             registryUrl= "192.168.3.216"
             registry_user= "admin"
             registry_pass= "Harbor12345"
-            /*registryUrl= "image.jayud.com"
+            /*registryUrl= "image.ctf.com"
             registry_user= "admin"
             registry_pass= "ctf12345"*/
             Project_name= "ctf-gateway"

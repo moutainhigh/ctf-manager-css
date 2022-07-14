@@ -23,6 +23,7 @@
 
 # 项目目录结构
 * ctf-common  帮助类
+  * ctf-elasticsearch   ES帮助类
   * ctf-emaill 邮件
   * ctf-file 统一文件上传
   * ctf-report 报价表
@@ -32,20 +33,16 @@
   * ctf-redis redis帮助类
   
 * ctf-gateway 统一路由转发
+* ctf-auth  统一授权服务
   
 * ctf-service 微服务
-  * ctf-auth-service  授权服务
-  * ctf-service-app app服务【以下是所有和APP相关的服务】
-    * ctf-service-app-
-  * ctf-service-admin 运营后台【以下是所有和运营后台相关的服务】
-    * ctf-service-app- 
+  * ctf-account-service  账号服务
+  * ctf-admin-service 运营后台
+  * ctf-generator-service  代码生成器
   
-* ctf-service-admin-api 微服务对内API
-  * ctf-service-admin-api   运营后台对内API
-      
-  * ctf-service-app-api   APP对内API
-
-
+* ctf-service-api 微服务对内API
+  * ctf-account-api   账号服务对内API
+  * ctf-admin-api 运营后台对内API
 
 GIT版本管理规则
 master分支

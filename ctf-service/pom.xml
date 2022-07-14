@@ -3,22 +3,17 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>ctf-platform</artifactId>
+        <artifactId>ctf</artifactId>
         <groupId>com.ctf</groupId>
-        <version>1.0</version>
+        <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <description>周大福智人项目</description>
-    <modules>
-        <module>ctf-service-admin</module>
-    </modules>
-    <groupId>com.ctf</groupId>
-    <artifactId>ctf-service</artifactId>
-    <packaging>pom</packaging>
-    <version>1.0</version>
 
-    <properties>
-        <customs.model.version>1.0</customs.model.version>
-        <customs.service.version>1.0</customs.service.version>
-    </properties>
+    <artifactId>ctf-service</artifactId>
+    <modules>
+        <module>ctf-account-service</module>
+        <module>ctf-admin-service</module>
+        <module>ctf-generator-service</module>
+    </modules>
+
 </project>
