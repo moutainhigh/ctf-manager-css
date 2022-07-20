@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ${packageName}.entity.${entityName};
 import ${packageName}.service.${entityName}Service;
-import com.ctf.component.commons.result.ActionResult;
-import com.ctf.component.commons.result.ListResult;
-import com.ctf.component.commons.result.ResultBuilder;
-import com.ctf.component.commons.utils.ExcelUtils;
-import com.ctf.component.commons.validator.InsertValidator;
-import com.ctf.component.commons.validator.UpdateValidator;
+import ActionResult;
+import ListResult;
+import ResultBuilder;
+import ExcelUtils;
+import InsertValidator;
+import UpdateValidator;
 
 /**
  * 控制层

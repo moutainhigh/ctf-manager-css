@@ -2,8 +2,8 @@ package ${packageName}.entity;
 
 import javax.validation.constraints.NotNull;
 
-import com.ctf.component.commons.entity.TimeEntity;
-import com.ctf.component.commons.validator.UpdateValidator;
+import TimeEntity;
+import UpdateValidator;
 
 /**
  * 实体类

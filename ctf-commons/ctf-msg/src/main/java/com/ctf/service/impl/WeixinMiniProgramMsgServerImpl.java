@@ -5,7 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.json.JSONObject;
-import com.ctf.common.RedisUtils;
+import com.ctf.RedisUtil;
 import com.ctf.service.WeixinMiniProgramMsgServer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,9 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 发送企业微信消息
+ */
 @Service
 @Slf4j
 public class WeixinMiniProgramMsgServerImpl implements WeixinMiniProgramMsgServer {
@@ -35,7 +38,7 @@ public class WeixinMiniProgramMsgServerImpl implements WeixinMiniProgramMsgServe
     private String templateid03;
 
     @Autowired
-    private RedisUtils redisUtils;
+    private RedisUtil redisUtils;
 
     /**
      * 1.接口调用凭证 /getAccessToken /auth.getAccessToken
@@ -49,7 +52,7 @@ public class WeixinMiniProgramMsgServerImpl implements WeixinMiniProgramMsgServe
 
         JSONObject jsonObject = new JSONObject();
         String key = "weixin_miniprogram_access_token"+"_"+appid;
-        String weixin_miniprogram_access_token = redisUtils.get(key);//钉钉-调用服务端API的应用凭证
+        String weixin_miniprogram_access_token = redisUtils.get(key).toString();//微信-调用服务端API的应用凭证
         if(StrUtil.isNotEmpty(weixin_miniprogram_access_token)){
             jsonObject.set("errcode", 0);
             jsonObject.set("access_token", weixin_miniprogram_access_token);

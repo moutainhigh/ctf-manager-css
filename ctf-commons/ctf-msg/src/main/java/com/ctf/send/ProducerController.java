@@ -2,7 +2,7 @@ package com.ctf.send;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.json.JSONUtil;
-import com.ctf.common.enums.ResultEnum;
+import com.ctf.utils.vo.ResultEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;

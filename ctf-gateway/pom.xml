@@ -8,10 +8,10 @@
 	<name>ctf-gateway</name>
 	<description>ctf gateway</description>
 
-	<parent>
+	<parent>s
 		<groupId>com.ctf</groupId>
-		<artifactId>ctf</artifactId>
-		<version>1.0.0</version>
+		<artifactId>ctf-platform</artifactId>
+		<version>1.0</version>
 	</parent>
 
     <properties>
@@ -28,7 +28,7 @@
         <dependency>
             <groupId>com.ctf</groupId>
             <artifactId>ctf-redis</artifactId>
-            <version>1.0.0</version>
+            <version>1.0</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>

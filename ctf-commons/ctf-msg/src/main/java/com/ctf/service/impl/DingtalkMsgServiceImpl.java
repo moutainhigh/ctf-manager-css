@@ -5,24 +5,26 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.json.JSONObject;
-import com.ctf.common.RedisUtils;
-import com.ctf.common.utils.DateUtils;
+import com.ctf.RedisUtil;
 import com.ctf.service.DingtalkMsgService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
+import com.ctf.utils.utils.DateUtils;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 发送钉钉消息
+ */
 @Service
 @Slf4j
 public class DingtalkMsgServiceImpl implements DingtalkMsgService {
 
     /**
-     * jayud 钉钉 应用凭证
+     *  钉钉 应用凭证
      */
     @Value("${dingtalk.agentId}")
     private String agentid;//发送消息时使用的微应用的AgentID
@@ -35,7 +37,7 @@ public class DingtalkMsgServiceImpl implements DingtalkMsgService {
 
 
     @Autowired
-    private RedisUtils redisUtils;
+    private RedisUtil redisUtils;
 
     /**
      获取企业凭证
@@ -50,7 +52,7 @@ public class DingtalkMsgServiceImpl implements DingtalkMsgService {
     public JSONObject gettoken(String appkey, String appsecret) {
         JSONObject jsonObject = new JSONObject();
         String key = "dingtalk_access_token"+"_"+appkey;
-        String dingtalk_access_token = redisUtils.get(key);//钉钉-调用服务端API的应用凭证
+        String dingtalk_access_token = redisUtils.get(key).toString();//钉钉-调用服务端API的应用凭证
         if(StrUtil.isNotEmpty(dingtalk_access_token)){
             jsonObject.set("errcode", 0);
             jsonObject.set("access_token", dingtalk_access_token);

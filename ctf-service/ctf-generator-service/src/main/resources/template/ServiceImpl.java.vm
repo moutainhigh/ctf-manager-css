@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ${packageName}.entity.${entityName};
 import ${packageName}.mapper.${entityName}Mapper;
 import ${packageName}.service.${entityName}Service;
-import com.ctf.component.commons.result.PaginationBuilder;
-import com.ctf.component.commons.utils.SequenceGenerator;
+import PaginationBuilder;
+import SequenceGenerator;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 

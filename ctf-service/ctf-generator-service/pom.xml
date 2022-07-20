@@ -42,7 +42,7 @@
         <dependency>
             <groupId>com.ctf</groupId>
             <artifactId>ctf-redis</artifactId>
-            <version>1.0.0</version>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>com.ctf</groupId>
