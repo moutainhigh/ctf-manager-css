@@ -1,9 +1,9 @@
-#jayud:
+#ctf:
 #  nacos:
 #    server-addr: 192.168.3.212:8848
 #    config:
 #      namespace: prod
-jayud:
+ctf:
   nacos:
     server-addr: 172.18.239.242:8848
     config:

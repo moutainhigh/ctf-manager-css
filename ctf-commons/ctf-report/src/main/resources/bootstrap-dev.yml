@@ -17,7 +17,7 @@
 #  level:
 #    root: debug
 
-jayud:
+ctf:
   nacos:
     server-addr: 113.100.140.250:8848
     config:

@@ -1,4 +1,4 @@
-jayud:
+ctf:
   nacos:
     server-addr: 172.18.239.242:8848
     config:
