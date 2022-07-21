@@ -8,7 +8,7 @@
 	<name>ctf-gateway</name>
 	<description>ctf gateway</description>
 
-	<parent>s
+	<parent>
 		<groupId>com.ctf</groupId>
 		<artifactId>ctf-platform</artifactId>
 		<version>1.0</version>
