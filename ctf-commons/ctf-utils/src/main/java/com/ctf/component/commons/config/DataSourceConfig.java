@@ -34,8 +34,7 @@ public class DataSourceConfig implements TransactionManagementConfigurer {
 	 * @return
 	 */
 	@Bean
-//	@ConfigurationProperties(prefix = "spring.datasource")
-	@ConfigurationProperties(prefix = "spring.datasource.druid")
+	@ConfigurationProperties(prefix = "spring.datasource")
 	public DataSource dataSource() {
 		return DataSourceBuilder.create().type(DruidDataSource.class).build();
 	}

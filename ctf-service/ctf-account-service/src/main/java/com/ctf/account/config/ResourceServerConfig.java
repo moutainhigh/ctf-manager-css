@@ -16,7 +16,6 @@ import com.ctf.component.commons.config.CommonResourceServerConfig;
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends CommonResourceServerConfig {
-
 	@Autowired
 	public ResourceServerConfig(ResourceServerProperties sso) {
 		super(sso);
@@ -27,8 +26,11 @@ public class ResourceServerConfig extends CommonResourceServerConfig {
 	 */
 	@Override
 	public void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.authorizeRequests().antMatchers("/actuator/**", "/sysuserdetail/registerAccount", "/sysuserdetail/retrievePassword",
-				"/sysuserdetail/compareCaptcha", "/captcha/generateImageCaptcha", "/captcha/getSmsCaptcha").permitAll().anyRequest().authenticated();
+		httpSecurity.authorizeRequests()
+				.antMatchers("/actuator/**", "/sysuserdetail/registerAccount", "/sysuserdetail/retrievePassword",
+						"/sysuserdetail/compareCaptcha", "/captcha/generateImageCaptcha", "/captcha/getSmsCaptcha").permitAll().anyRequest().authenticated();
 	}
+
+
 
 }

@@ -4,65 +4,13 @@ spring:
   profiles:
     active: native
   cloud:
-    gateway:
-      default-filters:
-        - StripPrefix=1
-#        discovery:
-#          locator:
-#            enabled: true
-#      lower-case-service-id: true
-
-      routes:
-      - id: ctf-auth
-        uri: lb://ctf-auth
-        predicates:
-          - Path=/api/uaa/**
-        #  filters:
-        #   - StripPrefix=3
-        #   - IgnoreGlobalFilterFactor
-      - id: ctf-account-service
-        uri: lb://ctf-account-service
-        predicates:
-          - Path=/api/account/**
-#      filter
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
-
     nacos:
       config:
-        server-addr: 192.168.10.228:8848
+        server-addr: 127.0.0.1:8848
+        file-extension: yaml
+        shared-dataids: application.yaml
+        refreshable-dataids: application.yaml
       discovery:
-        server-addr: 192.168.10.228:8848
-  #      nacos:
-#      config:
-##        server-addr: 127.0.0.1:8848
-#        server-addr: 192.168.10.228:8848
-#        file-extension: yaml
-##        shared-configs[0]:
-##          refresh: application.yml
-#        shared-dataids: application.yml
-#        refreshable-dataids: application.yml
-#
-#      discovery:
-##        server-addr: 127.0.0.1:8848
-#        server-addr: 192.168.10.228:8848
+        server-addr: 127.0.0.1:8848
   main:
     allow-bean-definition-overriding: true
-redis:
-  host: 127.0.0.1
-  port: 6379
-  password: hackm
-  expiredTime: 86400
-
-server:
-  port: 10003
-
-#  redis:
-#      host: 127.0.0.1
-#      port: 6379
-#      password: hackm
-#    expiredTime: 86400
-
-

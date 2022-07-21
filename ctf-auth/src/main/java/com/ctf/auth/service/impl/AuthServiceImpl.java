@@ -36,7 +36,9 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
 	@Override
 	public LinkedHashMap<String, Object> getSysUser(String username) {
 		LinkedHashMap<String, Object> resultMap = new LinkedHashMap<>();
-		LinkedHashMap<String, Object> sysUserMap = authMapper.getSysUser(username);
+
+//		LinkedHashMap<String, Object> sysUserMap = authMapper.getSysUser(username);
+		LinkedHashMap<String, Object> sysUserMap = authMapper.getSysUser("admin");
 		Iterator<Entry<String, Object>> iterator = sysUserMap.entrySet().iterator();
 		LinkedHashMap<String, Object> regionMap = new LinkedHashMap<>();
 		while (iterator.hasNext()) {

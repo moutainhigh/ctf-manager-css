@@ -4,7 +4,9 @@ import com.ctf.account.entity.SysUserDetail;
 import com.ctf.account.mapper.SysUserDetailMapper;
 import com.ctf.account.service.SysUserDetailService;
 import com.ctf.cach.redis.constants.ApplicationConstants;
-import com.ctf.cach.redis.test.RedisUtil;
+import com.ctf.cach.redis.util.RedisUtils;
+import com.ctf.component.commons.client.ClientResponse;
+import com.ctf.component.commons.exception.ServiceException;
 import com.ctf.component.commons.utils.RecursiveListUtils;
 import com.ctf.component.commons.utils.SequenceGenerator;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -25,16 +27,16 @@ import java.util.List;
 @Service
 @Transactional
 public class SysUserDetailServiceImpl implements SysUserDetailService {
-
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     private static SequenceGenerator sequenceGenerator = new SequenceGenerator();
 
     @Autowired
     private SysUserDetailMapper sysUserDetailMapper;
+    @Autowired
+    private RedisUtils redisUtils;
 //    @Autowired
-//    private RedisUtils redisUtils;
-
+//    private EmailServiceClient emailServiceClient;
 
     /**
      * 查询当前用户的角色
@@ -130,19 +132,20 @@ public class SysUserDetailServiceImpl implements SysUserDetailService {
             throw new IllegalArgumentException("邮箱不存在");
         }
         String charCaptchaKey = ApplicationConstants.CHAR_CAPTCHA_PREFIX + "anonymousUser";
-//        String charCaptchaCache = redisUtils.get(charCaptchaKey);
-        String charCaptchaCache = RedisUtil.get(charCaptchaKey).toString();
+        String charCaptchaCache = redisUtils.get(charCaptchaKey);
         if (charCaptcha.equalsIgnoreCase(charCaptchaCache)) {
             String newPassword = RandomStringUtils.randomAlphanumeric(6);
             String subject = "找回密码";
             String text = MessageFormat.format("你的账户新密码是：{0}", newPassword);
-
+//            ClientResponse clientResponse = emailServiceClient.sendEmail(email, subject, text);
+//            if (!clientResponse.isSuccess()) {
+//                throw new ServiceException(clientResponse.toString());
+//            }
             sysUserDetailMapper.updatePasswordByEmail(encoder.encode(newPassword), email);
         } else {
             throw new IllegalArgumentException("图片验证码错误或已过期，请重新输入");
         }
-//        redisUtils.del(charCaptchaKey);
-        RedisUtil.del(charCaptchaKey);
+        redisUtils.del(charCaptchaKey);
     }
 
     /**
@@ -150,15 +153,12 @@ public class SysUserDetailServiceImpl implements SysUserDetailService {
      */
     @Override
     public void compareCaptcha(String charCaptcha) {
-//        String charCaptchaKey = ApplicationConstants.CHAR_CAPTCHA_PREFIX + "anonymousUser";
-////        String charCaptchaCache = redisUtils.get(charCaptchaKey);
-//        String charCaptchaCache = RedisUtil.get(charCaptchaKey).toString();
-//        if (!charCaptcha.equalsIgnoreCase(charCaptchaCache)) {
-//            throw new IllegalArgumentException("图片验证码错误或已过期，请重新输入");
-//        }
-////        redisUtils.del(charCaptchaKey);
-//        RedisUtil.del(charCaptchaKey);
+        String charCaptchaKey = ApplicationConstants.CHAR_CAPTCHA_PREFIX + "anonymousUser";
+        String charCaptchaCache = redisUtils.get(charCaptchaKey);
+        if (!charCaptcha.equalsIgnoreCase(charCaptchaCache)) {
+            throw new IllegalArgumentException("图片验证码错误或已过期，请重新输入");
+        }
+        redisUtils.del(charCaptchaKey);
     }
-
 
 }

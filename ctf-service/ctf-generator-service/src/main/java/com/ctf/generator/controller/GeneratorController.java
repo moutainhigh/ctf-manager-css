@@ -63,7 +63,7 @@ public class GeneratorController {
 	/**
 	 * 根据代码信息ID查询对应的实体字段
 	 *
-	 * @param generatorId 代码信息ID
+	 * @param generatorFieldVO 代码信息ID
 	 * @return
 	 */
 	@GetMapping(path = "/queryFieldByGeneratorId")

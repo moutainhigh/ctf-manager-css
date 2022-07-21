@@ -32,7 +32,6 @@ import com.ctf.component.commons.validator.UpdateDetailValidator;
 @RestController
 @RequestMapping("/sysuserdetail")
 public class SysUserDetailController {
-
 	@Autowired
 	private SysUserDetailService sysUserDetailService;
 
@@ -45,7 +44,7 @@ public class SysUserDetailController {
 	 */
 	@PostMapping(path = "/queryCurrentAuthority")
 	public String queryCurrentAuthority(@RequestParam(name = "username", required = false) String username,
-			@RequestParam(name = "mobile", required = false) String mobile) {
+										@RequestParam(name = "mobile", required = false) String mobile) {
 		if (StringUtils.isBlank(username) && StringUtils.isBlank(mobile)) {
 			throw new IllegalArgumentException("用户名或手机号不能为空");
 		}
@@ -95,7 +94,7 @@ public class SysUserDetailController {
 	 */
 	@PutMapping(path = "/updateSysUserInfo")
 	public ActionResult updateSysUserInfo(@RequestParam(name = "fieldValue", required = true) String fieldValue,
-			@RequestParam(name = "field", required = true) String field, @RequestParam(name = "id", required = true) Long id) {
+										  @RequestParam(name = "field", required = true) String field, @RequestParam(name = "id", required = true) Long id) {
 		sysUserDetailService.updateSysUserInfo(fieldValue, field, id);
 		return ResultBuilder.buildActionSuccess();
 	}
@@ -110,7 +109,7 @@ public class SysUserDetailController {
 	 */
 	@PutMapping(path = "/updatePassword")
 	public ActionResult updatePassword(@RequestParam(name = "password", required = true) String password,
-			@RequestParam(name = "newPassword", required = true) String newPassword, @RequestParam(name = "id", required = true) Long id) {
+									   @RequestParam(name = "newPassword", required = true) String newPassword, @RequestParam(name = "id", required = true) Long id) {
 		sysUserDetailService.updatePassword(password, newPassword, id);
 		return ResultBuilder.buildActionSuccess();
 	}
@@ -124,7 +123,7 @@ public class SysUserDetailController {
 	 */
 	@PostMapping(path = "/retrievePassword")
 	public ActionResult retrievePassword(@RequestParam(name = "email", required = true) String email,
-			@RequestParam(name = "charCaptcha", required = true) String charCaptcha) {
+										 @RequestParam(name = "charCaptcha", required = true) String charCaptcha) {
 		sysUserDetailService.retrievePassword(email, charCaptcha);
 		return ResultBuilder.buildActionSuccess();
 	}

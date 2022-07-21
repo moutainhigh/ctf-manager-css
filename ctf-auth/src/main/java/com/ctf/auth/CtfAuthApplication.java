@@ -12,7 +12,9 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
  *
  */
 @SpringBootApplication(scanBasePackages = "com.ctf")
+@EnableResourceServer
 @EnableDiscoveryClient
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class CtfAuthApplication {
 
 	public static void main(String[] args) {

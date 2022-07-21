@@ -1,6 +1,6 @@
 package com.ctf.gateway.filter;
 
-//import com.ctf.cach.redis.constants.ApplicationConstants;
+import com.ctf.cach.redis.constants.ApplicationConstants;
 //import com.ctf.cach.redis.util.RedisUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

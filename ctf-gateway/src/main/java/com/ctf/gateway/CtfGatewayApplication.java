@@ -1,6 +1,6 @@
 package com.ctf.gateway;
 
-import com.ctf.gateway.filter.GatewayFilter;
+//import com.ctf.gateway.filter.GatewayFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -17,9 +17,9 @@ public class CtfGatewayApplication {
         SpringApplication.run(CtfGatewayApplication.class);
     }
 
-    @Bean
-    public GatewayFilter gatewayFilter() {
-        return new GatewayFilter();
-    }
+//    @Bean
+//    public GatewayFilter gatewayFilter() {
+//        return new GatewayFilter();
+//    }
 
 }
