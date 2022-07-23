@@ -23,6 +23,7 @@
         <module>ctf-msg</module>
         <module>ctf-elasticsearch</module>
         <module>ctf-redis</module>
+        <module>ctf-sequence</module>
     </modules>
     <properties>
         <commons.fileupload.version>1.4</commons.fileupload.version>
