@@ -9,10 +9,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @EnableDiscoveryClient
 @EnableFeignClients
-public class CtffEmailApplication {
+public class CtfEmailApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CtffEmailApplication.class, args);
+		SpringApplication.run(CtfEmailApplication.class, args);
 	}
 
 }
