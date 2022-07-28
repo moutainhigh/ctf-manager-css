@@ -10,19 +10,17 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 
 /**
  * Ctf的APP服务启动类
- *
- *
  */
 @SpringBootApplication(scanBasePackages = "com.ctf")
 @EnableDiscoveryClient
 @EnableOAuth2Client
-@EnableFeignClients(basePackages = { "com.ctf" })
+@EnableFeignClients(basePackages = {"com.ctf"})
 @EnableCircuitBreaker
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class CtfApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CtfApplication.class);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CtfApplication.class);
+    }
 
 }

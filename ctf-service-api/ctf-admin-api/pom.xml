@@ -9,8 +9,8 @@
 	<description>ctf admin api</description>
 
 	<parent>
+		<artifactId>ctf-service-api</artifactId>
 		<groupId>com.ctf</groupId>
-		<artifactId>ctf-platform</artifactId>
 		<version>1.0</version>
 	</parent>
 
