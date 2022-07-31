@@ -2,6 +2,7 @@ package com.ctf.gateway.filter;
 
 import com.ctf.cach.redis.constants.ApplicationConstants;
 //import com.ctf.cach.redis.util.RedisUtils;
+import com.ctf.cach.redis.util.RedisUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -17,9 +18,9 @@ import reactor.core.publisher.Mono;
  */
 @Component
 public class GatewayFilter implements GlobalFilter, Ordered {
-//
-//    @Autowired
-//    private RedisUtils redisUtils;
+
+    @Autowired
+    private RedisUtils redisUtils;
 
     /**
      * 执行过滤器，处理无权限的URL
@@ -46,10 +47,10 @@ public class GatewayFilter implements GlobalFilter, Ordered {
             String newPartialUrl = "/" + partialUrlArray[1] + "/" + partialUrlArray[2] + "/" + partialUrlArray[3];
             String[] rawRoleCode = roleCode.split(",");
             StringBuilder stringBuilder = new StringBuilder();
-//            for (int i = 0; i < rawRoleCode.length; i++) {
-//                stringBuilder
-//                        .append(redisUtils.get(ApplicationConstants.URL_ROLECODE_PREFIX + StringUtils.strip(StringUtils.strip(rawRoleCode[i], "[]"), "\"")));
-//            }
+            for (int i = 0; i < rawRoleCode.length; i++) {
+                stringBuilder
+                        .append(redisUtils.get(ApplicationConstants.URL_ROLECODE_PREFIX + StringUtils.strip(StringUtils.strip(rawRoleCode[i], "[]"), "\"")));
+            }
             if (stringBuilder != null) {
                 if (stringBuilder.indexOf(newPartialUrl) == -1) {
                     exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
