@@ -13,7 +13,7 @@ import ${i!};
 * ${tableComment}
 *
 * @author ${author} ${email}
-* @date 2022/08/05 11:25
+* @since ${version} ${date}
 */
 @Data
 @Schema(description = "${tableComment}")

@@ -11,7 +11,7 @@ import java.util.List;
 * ${tableComment}
 *
 * @author ${author} ${email}
-* @date 2022/08/05 11:25
+* @since ${version} ${date}
 */
 @Mapper
 public interface ${ClassName}Convert {

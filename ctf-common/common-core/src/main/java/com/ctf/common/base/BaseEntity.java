@@ -20,4 +20,7 @@ public class BaseEntity implements Serializable {
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
+
+
+
 }

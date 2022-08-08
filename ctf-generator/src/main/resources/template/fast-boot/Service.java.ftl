@@ -12,7 +12,7 @@ import java.util.List;
  * ${tableComment}
  *
  * @author ${author} ${email}
- * @date 2022/08/05 11:25
+ * @since ${version} ${date}
  */
 public interface ${ClassName}Service extends BaseService<${ClassName}Entity> {
 

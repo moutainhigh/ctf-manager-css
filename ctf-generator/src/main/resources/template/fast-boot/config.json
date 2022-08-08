@@ -2,8 +2,8 @@
   "project": {
     "packageName": "com.ctf",
     "version": "1.0.0",
-    "backendPath": "D:\\generator\\fast-boot\\fast-server",
-    "frontendPath": "D:\\generator\\fast-admin"
+    "backendPath": "D:\\generator\\ctf-backend",
+    "frontendPath": "D:\\generator\\ctf-frontend"
   },
   "developer": {
     "author": "H.m",

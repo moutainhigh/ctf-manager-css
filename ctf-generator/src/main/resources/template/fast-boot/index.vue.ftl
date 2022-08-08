@@ -87,7 +87,7 @@
 <script setup lang="ts" name="<#if moduleName??>${moduleName}</#if>${ClassName}Index">
 import { useCrud } from '@/hooks'
 import { reactive, ref } from 'vue'
-import AddOrUpdate from './add-or-update.vue.ftl'
+import AddOrUpdate from './add-or-update.vue'
 import { IHooksOptions } from '@/hooks/interface'
 
 const state: IHooksOptions = reactive({

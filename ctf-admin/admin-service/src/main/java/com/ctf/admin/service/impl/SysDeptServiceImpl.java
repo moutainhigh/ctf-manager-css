@@ -7,13 +7,14 @@ import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ctf.common.constant.SystemConstants;
 import com.ctf.admin.mapper.SysDeptMapper;
 import com.ctf.admin.pojo.entity.SysDept;
 import com.ctf.admin.pojo.query.DeptQuery;
 import com.ctf.admin.pojo.vo.dept.DeptVO;
 import com.ctf.admin.service.SysDeptService;
 import com.ctf.common.constant.GlobalConstants;
+import com.ctf.common.constant.SystemConstants;
+import com.ctf.common.util.SequenceGenerator;
 import com.ctf.common.web.domain.Option;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
@@ -32,7 +33,10 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> implements SysDeptService {
-
+    /**
+     * 雪花ID生成器
+     */
+    private static SequenceGenerator sequenceGenerator = new SequenceGenerator();
 
     /**
      * 部门列表
@@ -162,7 +166,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
         // 生成部门树路径
         String treePath = generateDeptTreePath(dept);
         dept.setTreePath(treePath);
-
+//        dept.setId(sequenceGenerator.nextId());
         boolean result = this.saveOrUpdate(dept);
         Assert.isTrue(result, "保存部门出错");
         return dept.getId();
