@@ -224,7 +224,7 @@ dto、vo实体类名带后缀且全大写
 
     - 至此完成基础服务的启动，商城服务按需启动，启动方式和 `ctf-admin` 一致；
 
-    - 访问接口文档地址测试: [http://localhost:9999/doc.html](http://localhost:9999/doc.html)
+    - 访问接口文档地址测试: [http://localhost:19999/doc.html](http://localhost:19999/doc.html)
 
 #### 本地启动
 
