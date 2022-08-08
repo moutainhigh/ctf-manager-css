@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.ctf.common.sms.config.AliyunSmsProperties,\
+  com.ctf.common.sms.service.AliyunSmsService, \
+  com.ctf.common.sms.controller.SmsCodeController

@@ -3,49 +3,108 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <description>周大福智人APP2.0</description>
+
     <groupId>com.ctf</groupId>
-    <artifactId>ctf-platform</artifactId>
+    <artifactId>ctf-manager</artifactId>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
-    <version>1.0</version>
+
     <modules>
-        <module>ctf-auth</module>
+        <!-- 基础模块 -->
+        <module>ctf-common</module>
         <module>ctf-gateway</module>
-        <module>ctf-commons</module>
-        <module>ctf-service</module>
-        <module>ctf-service-api</module>
+        <module>ctf-admin</module>
+        <module>ctf-auth</module>
+
+        <!-- 服务模块 -->
+        <module>ctf-sms</module>
+        <module>ctf-ums</module>
+
+        <!--应用举例模块-上限删除或基础上修改-->
+        <module>ex-pms</module>
+        <module>ex-oms</module>
+
+        <!-- 实验室模块(可忽略，无关业务的真实和模拟交互空间) -->
+        <module>ctf-lab</module>
+        <module>ctf-generator</module>
     </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.8.RELEASE</version>
+        <version>2.7.0</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <properties>
-        <spring-cloud-alibaba.version>0.9.0.RELEASE</spring-cloud-alibaba.version>
-        <lombok.version>1.18.12</lombok.version>
-        <commons.io.version>2.5</commons.io.version>
-        <mysql.version>8.0.16</mysql.version>
-        <hutool.version>5.4.6</hutool.version>
-        <mybatisplus.version>3.4.1</mybatisplus.version>
-        <swagger.version>2.9.2</swagger.version>
-        <jayud-common.version>1.0</jayud-common.version>
-        <jwt.version>0.7.0</jwt.version>
-        <fastjson.version>1.2.75</fastjson.version>
-        <seata.version>1.3.0</seata.version>
-        <alibaba.seata.version>2.1.3.RELEASE</alibaba.seata.version>
-        <spring-cloud-starter-bootstrap.version>3.0.3</spring-cloud-starter-bootstrap.version>
-        <druid.version>1.1.22</druid.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-cloud.version>Hoxton.SR10</spring-cloud.version>
         <java.version>1.8</java.version>
+
+        <!-- config -->
+        <docker.image.prefix>ctf</docker.image.prefix>
+
+        <!-- spring boot -->
+        <spring-boot.version>2.7.0</spring-boot.version>
+
+        <!-- spring cloud -->
+        <spring-cloud.version>2021.0.2</spring-cloud.version>
+        <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
+
+        <!-- db && orm -->
+        <mysql.version>8.0.19</mysql.version>
+        <druid.version>1.2.4</druid.version>
+        <mybatis-plus.version>3.4.3</mybatis-plus.version>
+
+        <!-- api doc -->
+        <knife4j.version>2.0.9</knife4j.version>
+        <swagger.version>1.6.2</swagger.version>
+
+        <!-- tools -->
+        <lombok.version>1.18.24</lombok.version>
+        <hutool.version>5.8.3</hutool.version>
+        <mapstruct.version>1.5.0.RC1</mapstruct.version>
+        <weixin-java.version>4.1.5.B</weixin-java.version>
+        <easyexcel.version>3.0.5</easyexcel.version>
+        <easy-captcha.version>1.6.2</easy-captcha.version>
+        <nimbus-jose-jwt.version>9.16.1</nimbus-jose-jwt.version>
+        <thumbnailator.version>0.4.17</thumbnailator.version>
+
+        <!-- elastic stack -->
+        <elasticsearch.version>7.10.1</elasticsearch.version>
+        <logstash-logback-encoder.version>6.6</logstash-logback-encoder.version>
+
+        <!-- distributed -->
+        <seata.version>1.5.1</seata.version>
+        <redisson.version>3.16.8</redisson.version>
+
+        <!-- 阿里云短信 -->
+        <aliyun.java.sdk.core.version>4.5.25</aliyun.java.sdk.core.version>
+        <aliyun.java.sdk.dysmsapi.version>2.1.0</aliyun.java.sdk.dysmsapi.version>
+
+        <!-- minio -->
+        <minio.version>8.3.7</minio.version>
+        <okhttp3.version>4.8.1</okhttp3.version>
     </properties>
-    <!-- 管理依赖 -->
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
+        </dependency>
+    </dependencies>
+
     <dependencyManagement>
         <dependencies>
+            <!--Spring Cloud 相关依赖-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -53,7 +112,289 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!--Spring Cloud & Alibaba 相关依赖-->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <!-- 分布式文件存储 -->
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>weixin-java-miniapp</artifactId>
+                <version>${weixin-java.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>weixin-java-pay</artifactId>
+                <version>${weixin-java.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-spring-boot-starter</artifactId>
+                <version>${seata.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-micro-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-ui</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+
+            <!-- ELK -->
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <version>${logstash-logback-encoder.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-client</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+
+            <!-- 分布式锁 -->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ctf</groupId>
+                <artifactId>common-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ctf</groupId>
+                <artifactId>common-elasticsearch</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ctf</groupId>
+                <artifactId>common-mybatis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ctf</groupId>
+                <artifactId>common-rabbitmq</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ctf</groupId>
+                <artifactId>common-redis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ctf</groupId>
+                <artifactId>common-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ctf</groupId>
+                <artifactId>common-log</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ctf</groupId>
+                <artifactId>common-sms</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ctf</groupId>
+                <artifactId>common-file</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.whvcse</groupId>
+                <artifactId>easy-captcha</artifactId>
+                <version>${easy-captcha.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>aliyun-java-sdk-core</artifactId>
+                <version>${aliyun.java.sdk.core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+                <version>${aliyun.java.sdk.dysmsapi.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>easyexcel</artifactId>
+                <version>${easyexcel.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ctf</groupId>
+                <artifactId>admin-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ctf</groupId>
+                <artifactId>oms-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ctf</groupId>
+                <artifactId>pms-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ctf</groupId>
+                <artifactId>ums-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ctf</groupId>
+                <artifactId>sms-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-jdk8</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+
+            <!-- JWT工具 -->
+            <dependency>
+                <groupId>com.nimbusds</groupId>
+                <artifactId>nimbus-jose-jwt</artifactId>
+                <version>${nimbus-jose-jwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.coobird</groupId>
+                <artifactId>thumbnailator</artifactId>
+                <version>${thumbnailator.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- maven-compiler-plugin 插件，解决 Lombok + MapStruct 组合 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                                <version>${lombok.version}</version>
+                            </path>
+                            <path>
+                                <groupId>org.mapstruct</groupId>
+                                <artifactId>mapstruct-processor</artifactId>
+                                <version>${mapstruct.version}</version>
+                            </path>
+                        </annotationProcessorPaths>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>aliyunmaven</id>
+            <name>aliyun</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+        </repository>
+    </repositories>
 </project>

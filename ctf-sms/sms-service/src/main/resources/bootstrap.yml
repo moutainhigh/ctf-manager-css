@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: ctf-sms
+  profiles:
+    active: dev
+

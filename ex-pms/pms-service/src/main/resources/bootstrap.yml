@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: ex-pms
+  profiles:
+    active: dev

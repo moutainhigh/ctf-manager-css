@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: ex-oms
+  profiles:
+    active: dev

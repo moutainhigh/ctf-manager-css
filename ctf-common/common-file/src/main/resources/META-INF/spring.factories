@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.ctf.common.file.service.MinioService,\
+  com.ctf.common.file.controller.FileController
+

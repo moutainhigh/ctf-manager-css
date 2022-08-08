@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.ctf.common.web.config.WebMvcConfig,\
+  com.ctf.common.web.config.FeignConfig,\
+  com.ctf.common.web.exception.GlobalExceptionHandler,\
+  com.ctf.common.web.security.advice.PermissionAdvice
