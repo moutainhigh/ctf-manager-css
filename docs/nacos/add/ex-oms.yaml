@@ -1,0 +1,82 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${mysql.host}:${mysql.port}/ex_oms?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true
+    username: ${mysql.username}
+    password: ${mysql.password}
+  # RabbitMQ 配置
+  rabbitmq:
+    host: ${rabbitmq.host}
+    port: ${rabbitmq.port}
+    username: ${rabbitmq.username}
+    password: ${rabbitmq.password}
+    # 动态创建和绑定队列、交换机的配置
+    modules:
+      # 订单延时队列，到了过期的时间会被转发到订单取消队列
+      - routing-key: order.create.routing.key
+        queue:
+          name: order.delay.queue
+          dead-letter-exchange: order.exchange
+          dead-letter-routing-key: order.close.routing.key
+          arguments:
+            # 1分钟(测试)，单位毫秒
+            x-message-ttl: 60000
+        exchange:
+          name: order.exchange
+
+      # 订单取消队列
+      - routing-key: order.close.routing.key
+        queue:
+          name: order.close.queue
+        exchange:
+          name: order.exchange
+
+  redis:
+    database: 0
+    host: ${redis.host}
+    port: ${redis.port}
+    password: ${redis.password}
+    lettuce:
+      pool:
+        min-idle: 1
+mybatis-plus:
+  configuration:
+    # 驼峰下划线转换
+    map-underscore-to-camel-case: true
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 分布式锁配置
+redisson:
+  address: redis://${redis.host}:${redis.port}
+  password: ${redis.password}
+  database: 0
+  min-idle: 2
+
+# 分布式事务配置
+seata:
+  tx-service-group: mall_tx_group
+  enable-auto-data-source-proxy: true
+  registry:
+    type: nacos
+    nacos:
+      server-addr: ${seata.nacos.server-addr}
+      namespace: seata-namespace-id
+      group: SEATA_GROUP
+  config:
+    type: nacos
+    nacos:
+      server-addr: ${seata.nacos.server-addr}
+      namespace: seata-namespace-id
+      group: SEATA_GROUP
+
+
+# Feign 配置
+feign:
+  httpclient:
+    enabled: true
+  okhttp:
+    enabled: false
+  sentinel:  # 开启feign对sentinel的支持
+    enabled: false
