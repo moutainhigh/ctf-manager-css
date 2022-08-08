@@ -103,6 +103,18 @@ develop分支-年月日
 release分支
 测试环境中出现的bug，统一在该分支下进行修改，并推送至远程分支。修改内容必须合并回develop分支和master分支
 
+### 提交Message格式规范
+>IDEA 安装 Git Commit Template 插件
+* feat 增加新功能
+* fix 修复BUG
+* docs 文档/注释
+* style 代码风格改变但不影响运行结果(代码格式化、空格和空行调整等)
+* refactor 代码重构
+* test 测试
+* chore 依赖更新/配置更新
+* ci 持续集成
+
+#开发分支规范
 
 ### 开发&提交注释规则
 
