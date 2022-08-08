@@ -3,8 +3,8 @@ package ${package}<#if moduleName??>.${moduleName}</#if>.controller<#if subModul
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import ${package}.framework.common.page.PageResult;
-import ${package}.framework.common.utils.Result;
+import ${package}.common.result.PageResult;
+import ${package}.common.result.Result;
 import ${package}<#if moduleName??>.${moduleName}</#if>.convert<#if subModuleName??>.${subModuleName}</#if>.${ClassName}Convert;
 import ${package}<#if moduleName??>.${moduleName}</#if>.entity<#if subModuleName??>.${subModuleName}</#if>.${ClassName}Entity;
 import ${package}<#if moduleName??>.${moduleName}</#if>.service<#if subModuleName??>.${subModuleName}</#if>.${ClassName}Service;
