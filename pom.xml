@@ -27,6 +27,7 @@
         <!-- 实验室模块(可忽略，无关业务的真实和模拟交互空间) -->
         <module>ctf-lab</module>
         <module>ctf-generator</module>
+        <module>ctf-css</module>
     </modules>
 
     <parent>
@@ -86,6 +87,9 @@
         <!-- minio -->
         <minio.version>8.3.7</minio.version>
         <okhttp3.version>4.8.1</okhttp3.version>
+
+        <!--flyway-->
+        <flyway.version>7.1.1</flyway.version>
     </properties>
 
     <dependencies>
@@ -222,6 +226,13 @@
             </dependency>
 
             <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-core</artifactId>
+                <!--                <version>7.1.1</version>-->
+                <version>${flyway.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>com.ctf</groupId>
                 <artifactId>common-core</artifactId>
                 <version>${project.version}</version>
@@ -326,6 +337,12 @@
             <dependency>
                 <groupId>com.ctf</groupId>
                 <artifactId>sms-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ctf</groupId>
+                <artifactId>css-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
