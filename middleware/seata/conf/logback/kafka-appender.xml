@@ -8,17 +8,17 @@
         <encoder>
             <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}|%p|seata-server|${PORT:-0}|%t|%logger|%X{X-TX-XID:-}|%X{X-TX-BRANCH-ID:-}|%m|%wex</pattern>-->
             <pattern>{
-    "@timestamp": "%d{yyyy-MM-dd HH:mm:ss.SSS}",
-    "level":"%p",
-    "app_name":"${APPLICATION_NAME:-}",
-    "PORT": ${PORT:-0},
-    "thread_name": "%t",
-    "logger_name": "%logger",
-    "X-TX-XID": "%X{X-TX-XID:-}",
-    "X-TX-BRANCH-ID": "%X{X-TX-BRANCH-ID:-}",
-    "message": "%m",
-    "stack_trace": "%wex"
-}
+                "@timestamp": "%d{yyyy-MM-dd HH:mm:ss.SSS}",
+                "level":"%p",
+                "app_name":"${APPLICATION_NAME:-}",
+                "PORT": ${PORT:-0},
+                "thread_name": "%t",
+                "logger_name": "%logger",
+                "X-TX-XID": "%X{X-TX-XID:-}",
+                "X-TX-BRANCH-ID": "%X{X-TX-BRANCH-ID:-}",
+                "message": "%m",
+                "stack_trace": "%wex"
+                }
             </pattern>
         </encoder>
         <topic>${KAFKA_TOPIC}</topic>
