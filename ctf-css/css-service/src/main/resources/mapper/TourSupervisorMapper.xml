@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctf.css.mapper.TourSupervisorMapper">
+
+    <resultMap id="BaseResultMap" type="com.ctf.css.pojo.entity.TourSupervisor">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="superviseDomainId" column="supervise_domain_id" jdbcType="BIGINT"/>
+            <result property="status" column="status" jdbcType="VARCHAR"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+            <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+            <result property="createdBy" column="created_by" jdbcType="BIGINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updatedBy" column="updated_by" jdbcType="BIGINT"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="Base2ResultMap" type="com.ctf.css.pojo.vo.ex.UserVO">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="staffCode" column="staff_code" jdbcType="VARCHAR"/>
+        <result property="staffName" column="staff_name" jdbcType="VARCHAR"/>
+        <result property="gender" column="gender" jdbcType="TINYINT"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="telphone" column="telphone" jdbcType="VARCHAR"/>
+        <result property="age" column="age" jdbcType="INTEGER"/>
+        <result property="positionId" column="position_id" jdbcType="VARCHAR"/>
+        <result property="superviseDomainName" column="supervise_domain_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,supervise_domain_id,
+        status,is_deleted,remarks,
+        created_by,create_time,updated_by,
+        update_time
+    </sql>
+
+    <!--督导人员表为user_info 岗位与部门暂时只有ID，无法获取-->
+    <select id="getTourSupervisor" resultMap="Base2ResultMap" parameterType="com.ctf.css.pojo.query.TourSupervisorPageQuery">
+        SELECT sts.id ,ssd.supervise_domain_name ,ui.staff_code ,ui.staff_name ,
+               ui.gender ,ui.telphone ,ui.age
+        FROM store_tour_supervisor sts
+                 LEFT JOIN user_info ui
+                           on sts.user_id = ui.id
+                 LEFT JOIN store_supervise_domain ssd
+                           on sts.supervise_domain_id = ssd.id
+        <where>
+            sts.is_deleted = 0
+            <if test="query.staffCode != null and query.staffCode != ''">
+                AND ui.staff_code = #{query.staffCode}
+            </if>
+            <if test="query.staffName != null and query.staffName != ''">
+                AND ui.staff_name LIKE CONCAT('%',#{query.staffName},'%')
+            </if>
+            <if test="query.superviseDomainName != null and query.superviseDomainName != ''">
+                AND ssd.supervise_domain_name LIKE CONCAT('%',#{query.superviseDomainName},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

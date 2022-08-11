@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctf.css.mapper.RectificationMapper">
+
+    <resultMap id="BaseResultMap" type="com.ctf.css.pojo.entity.Rectification">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="storeId" column="store_id" jdbcType="BIGINT"/>
+            <result property="superviseDomainId" column="supervise_domain_id" jdbcType="BIGINT"/>
+            <result property="superviseId" column="supervise_id" jdbcType="BIGINT"/>
+            <result property="inspectionType" column="inspection_type" jdbcType="VARCHAR"/>
+            <result property="inspectionCycle" column="inspection_cycle" jdbcType="VARCHAR"/>
+            <result property="schemeId" column="scheme_id" jdbcType="BIGINT"/>
+            <result property="rectificationDetails" column="rectification_details" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="VARCHAR"/>
+            <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+            <result property="createdBy" column="created_by" jdbcType="BIGINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updatedBy" column="updated_by" jdbcType="BIGINT"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,store_id,supervise_domain_id,
+        supervise_id,inspection_type,inspection_cycle,
+        scheme_id,rectification_details,status,
+        remarks,created_by,create_time,
+        updated_by,update_time
+    </sql>
+</mapper>

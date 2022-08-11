@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctf.css.mapper.TourSchemeMapper">
+
+    <resultMap id="BaseResultMap" type="com.ctf.css.pojo.entity.TourScheme">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="schemeCode" column="scheme_code" jdbcType="VARCHAR"/>
+            <result property="superviseDomainId" column="supervise_domain_id" jdbcType="BIGINT"/>
+            <result property="schemeName" column="scheme_name" jdbcType="VARCHAR"/>
+            <result property="schemeOutlineId" column="scheme_outline_id" jdbcType="BIGINT"/>
+            <result property="schemeTopicNum" column="scheme_topic_num" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="VARCHAR"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+            <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+            <result property="createdBy" column="created_by" jdbcType="BIGINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updatedBy" column="updated_by" jdbcType="BIGINT"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,scheme_code,supervise_domain_id,
+        scheme_name,scheme_outline_id,scheme_topic_num,
+        status,is_deleted,remarks,
+        created_by,create_time,updated_by,
+        update_time
+    </sql>
+</mapper>

@@ -57,6 +57,10 @@
             <groupId>com.ctf</groupId>
             <artifactId>css-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.ctf</groupId>
+            <artifactId>admin-api</artifactId>
+        </dependency>
 
 
         <dependency>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctf.css.mapper.UserInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.ctf.css.pojo.entity.UserInfo">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="tenantId" column="tenant_id" jdbcType="BIGINT"/>
+            <result property="staffCode" column="staff_code" jdbcType="VARCHAR"/>
+            <result property="staffName" column="staff_name" jdbcType="VARCHAR"/>
+            <result property="gender" column="gender" jdbcType="TINYINT"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="telphone" column="telphone" jdbcType="VARCHAR"/>
+            <result property="age" column="age" jdbcType="INTEGER"/>
+            <result property="positionId" column="position_id" jdbcType="VARCHAR"/>
+            <result property="defaultPwd" column="default_pwd" jdbcType="VARCHAR"/>
+            <result property="developerEditFlag" column="developer_edit_flag" jdbcType="VARCHAR"/>
+            <result property="departmentId" column="department_id" jdbcType="BIGINT"/>
+            <result property="officerCd" column="officer_cd" jdbcType="VARCHAR"/>
+            <result property="hireDt" column="hire_dt" jdbcType="TIMESTAMP"/>
+            <result property="terminationDt" column="termination_dt" jdbcType="TIMESTAMP"/>
+            <result property="hrStatus" column="hr_status" jdbcType="VARCHAR"/>
+            <result property="supervisorId" column="supervisor_id" jdbcType="VARCHAR"/>
+            <result property="suplLvlId" column="supl_lvl_id" jdbcType="VARCHAR"/>
+            <result property="company" column="company" jdbcType="VARCHAR"/>
+            <result property="country" column="country" jdbcType="VARCHAR"/>
+            <result property="location" column="location" jdbcType="VARCHAR"/>
+            <result property="unionId" column="union_id" jdbcType="VARCHAR"/>
+            <result property="openId" column="open_id" jdbcType="VARCHAR"/>
+            <result property="createdBy" column="created_by" jdbcType="BIGINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updatedBy" column="updated_by" jdbcType="BIGINT"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="status" column="status" jdbcType="VARCHAR"/>
+            <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+            <result property="isDelete" column="is_delete" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,tenant_id,staff_code,
+        staff_name,gender,email,
+        telphone,age,position_id,
+        default_pwd,developer_edit_flag,department_id,
+        officer_cd,hire_dt,termination_dt,
+        hr_status,supervisor_id,supl_lvl_id,
+        company,country,location,
+        union_id,open_id,created_by,
+        create_time,updated_by,update_time,
+        status,remarks,is_delete
+    </sql>
+</mapper>

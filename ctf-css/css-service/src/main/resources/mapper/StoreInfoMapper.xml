@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctf.css.mapper.StoreInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.ctf.css.pojo.entity.StoreInfo">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="storeCode" column="store_code" jdbcType="VARCHAR"/>
+            <result property="storeName" column="store_name" jdbcType="VARCHAR"/>
+            <result property="storeManager" column="store_manager" jdbcType="VARCHAR"/>
+            <result property="storeSuperManager" column="store_super_manager" jdbcType="VARCHAR"/>
+            <result property="storeMobile" column="store_mobile" jdbcType="VARCHAR"/>
+            <result property="storeArea" column="store_area" jdbcType="VARCHAR"/>
+            <result property="areaName" column="area_name" jdbcType="VARCHAR"/>
+            <result property="managerPattern" column="manager_pattern" jdbcType="VARCHAR"/>
+            <result property="storeType" column="store_type" jdbcType="VARCHAR"/>
+            <result property="storeDimension" column="store_dimension" jdbcType="VARCHAR"/>
+            <result property="theirBus" column="their_bus" jdbcType="VARCHAR"/>
+            <result property="mainShop" column="main_shop" jdbcType="VARCHAR"/>
+            <result property="decorationStyle" column="decoration_style" jdbcType="VARCHAR"/>
+            <result property="decorationCost" column="decoration_cost" jdbcType="VARCHAR"/>
+            <result property="decorationAdr" column="decoration_adr" jdbcType="VARCHAR"/>
+            <result property="storePic" column="store_pic" jdbcType="VARCHAR"/>
+            <result property="lng" column="lng" jdbcType="VARCHAR"/>
+            <result property="lat" column="lat" jdbcType="VARCHAR"/>
+            <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+            <result property="createdBy" column="created_by" jdbcType="BIGINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updatedBy" column="updated_by" jdbcType="BIGINT"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,store_code,store_name,
+        store_manager,store_super_manager,store_mobile,
+        store_area,area_name,manager_pattern,
+        store_type,store_dimension,their_bus,
+        main_shop,decoration_style,decoration_cost,
+        decoration_adr,store_pic,lng,
+        lat,remarks,created_by,
+        create_time,updated_by,update_time
+    </sql>
+</mapper>

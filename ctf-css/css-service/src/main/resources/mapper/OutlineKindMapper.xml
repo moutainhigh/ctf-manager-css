@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctf.css.mapper.OutlineKindMapper">
+
+    <resultMap id="BaseResultMap" type="com.ctf.css.pojo.entity.OutlineKind">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="outlineId" column="outline_id" jdbcType="BIGINT"/>
+            <result property="kindName" column="kind_name" jdbcType="VARCHAR"/>
+            <result property="isCheckKeypoint" column="is_check_keypoint" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="VARCHAR"/>
+            <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+            <result property="createdBy" column="created_by" jdbcType="BIGINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updatedBy" column="updated_by" jdbcType="BIGINT"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,outline_id,kind_name,
+        is_check_keypoint,status,remarks,
+        created_by,create_time,updated_by,
+        update_time
+    </sql>
+</mapper>
