@@ -32,7 +32,7 @@ public class TourSupervisorController {
 
     @ApiOperation(value = "督导人员分页列表")
     @GetMapping("/pages")
-    public PageResult listAdvertPages(TourSupervisorPageQuery queryParams) {
+    public PageResult listAdvertPages(@RequestBody TourSupervisorPageQuery queryParams) {
 
         // 分页查询
         Page<UserVO> result = tourSupervisorService.pageSupervisor(queryParams);
