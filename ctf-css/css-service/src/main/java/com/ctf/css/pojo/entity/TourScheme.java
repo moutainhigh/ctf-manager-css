@@ -55,7 +55,7 @@ public class TourScheme extends BaseEntity {
      * 删除状态：0-未删除，1-已删除
      */
     @TableLogic(value = "0", delval = "1")
-    private Integer isDeleted;
+    private Integer deleted;
 
     /**
      * 描述
