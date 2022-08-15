@@ -3,9 +3,11 @@ package com.ctf.css.pojo.entity;
 import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import com.ctf.common.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
@@ -66,6 +68,9 @@ public class Inspection extends BaseEntity {
      */
     @TableLogic(value = "0", delval = "1")
     private Integer isDelete;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime inspectionTime;
 
     /**
      * 备注
