@@ -62,12 +62,12 @@ public class InspectionPlanController {
         return Result.judge(result);
     }
 
-//    @ApiOperation(value = "任务下发-已分配")
-//    @PostMapping("/task")
-//    public Result taskIssued(@ApiParam(value = "巡检督导ID与巡检时间对象") @RequestBody @Validated InspectionPlanForm form) {
-//        boolean result = tourPlanService.taskIssued(form);
-//        return Result.judge(result);
-//    }
+    @ApiOperation(value = "任务下发-已分配")
+    @PostMapping("/task/{ids}")
+    public Result taskIssued(@ApiParam(value = "巡检计划ID集") @PathVariable("ids") @Validated String ids) {
+        boolean result = tourPlanService.taskIssued(ids);
+        return Result.judge(result);
+    }
 
 //    // TODO: 2022/8/11    @RequirePerms(value = "sys:user:delete")暂时未考虑权限问题
 //    @ApiOperation(value = "删除督导人员")

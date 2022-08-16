@@ -1,5 +1,6 @@
 package com.ctf.css.pojo.form;
 
+import com.ctf.css.pojo.entity.TourSupervisor;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -14,19 +15,19 @@ import java.util.List;
 @Data
 public class InspectionPlanForm {
     /**
-     * 巡检计划ID集
+     * 巡检计划ID
      */
-    private List<Long> ids;
+    private Long id;
 
     /**
-     * 督导员ID
+     * 督导员
      */
-    private Long supervisorId;
+    private List<TourSupervisor> supervisors;
 
     /**
-     * 督导领域ID
+     * 巡检类型（0:独立,1:联合）
      */
-    private Long supervisorDomainId;
+    private Integer inspectionType;
 
     /**
      * 巡店时间

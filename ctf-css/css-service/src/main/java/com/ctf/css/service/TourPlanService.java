@@ -26,6 +26,19 @@ public interface TourPlanService extends IService<TourPlan> {
      * 已分配
      */
     public static final String ALLOCATED = "2";
+    /**
+     * 任务已下发
+     */
+    public static final String TASKS_ARE_ISSUED = "3";
+
+    /**
+     * 巡检类型：0 独立
+     */
+    public static final int TYPE_INDEPENDENT = 0;
+    /**
+     * 巡检类型：1 联合
+     */
+    public static final int TYPE_UNITE = 1;
 
     /**
      * 巡店计划-门店信息分页查询
@@ -50,9 +63,16 @@ public interface TourPlanService extends IService<TourPlan> {
     boolean selectType(String ids, Integer type);
 
     /**
-     * 选择督导员
+     * 选择督导员-批量
      * @param form
      * @return
      */
     boolean selectSupervisorAndType(InspectionPlanForm form);
+
+    /**
+     * 任务下发-批量
+     * @param ids
+     * @return
+     */
+    boolean taskIssued(String ids);
 }

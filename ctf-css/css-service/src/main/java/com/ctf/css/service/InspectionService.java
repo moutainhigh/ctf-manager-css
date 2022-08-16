@@ -9,5 +9,17 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2022-08-09 20:47:20
 */
 public interface InspectionService extends IService<Inspection> {
+    /**
+     * 未启动
+     */
+    public static final String UNSTART = "0";
+    /**
+     * 进行中
+     */
+    public static final String UNDER_WAY = "1";
+    /**
+     * 已完成
+     */
+    public static final String COMPLETED = "2";
 
 }

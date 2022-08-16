@@ -41,7 +41,7 @@ public class Inspection extends BaseEntity {
     /**
      * 巡检类型 0独立巡检 1联合巡检
      */
-    private String inspectionType;
+    private Integer inspectionType;
 
     /**
      * 任务周期
@@ -67,7 +67,7 @@ public class Inspection extends BaseEntity {
      * 删除状态(0-未删除 1-已删除)
      */
     @TableLogic(value = "0", delval = "1")
-    private Integer isDelete;
+    private Integer deleted;
 
     /**
      * 巡检时间
