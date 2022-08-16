@@ -1,6 +1,7 @@
 package com.ctf.css.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ctf.common.web.domain.Option;
 import com.ctf.css.pojo.entity.SuperviseDomain;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ctf.css.pojo.form.SuperviseDomainForm;
@@ -43,4 +44,11 @@ public interface SuperviseDomainService extends IService<SuperviseDomain> {
      * @return
      */
     boolean deleteSuperviseDomain(String superviseDomainIds);
+
+    /**
+     * 督导领域下拉列表
+     *
+     * @return
+     */
+    List<Option> listRoleOptions();
 }

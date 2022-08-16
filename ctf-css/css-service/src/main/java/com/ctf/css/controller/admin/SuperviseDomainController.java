@@ -3,7 +3,9 @@ package com.ctf.css.controller.admin;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ctf.common.result.PageResult;
 import com.ctf.common.result.Result;
+import com.ctf.common.web.domain.Option;
 import com.ctf.css.mapper.SuperviseDomainMapper;
+import com.ctf.css.pojo.entity.SuperviseDomain;
 import com.ctf.css.pojo.form.SuperviseDomainForm;
 import com.ctf.css.pojo.form.SuperviseForm;
 import com.ctf.css.pojo.query.SupervisorDomainPageQuery;
@@ -18,6 +20,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @Author zhangyizheng
@@ -41,6 +45,21 @@ public class SuperviseDomainController {
         return PageResult.success(result);
     }
 
+//    @ApiOperation(value = "督导领域下拉列表")
+//    @GetMapping("/options")
+//    public Result<List<Option>> listRoleOptions() {
+//        List<Option> list = sysRoleService.listRoleOptions();
+//        return Result.success(list);
+//    }
+
+    @ApiOperation(value = "督导领域详情")
+    @GetMapping("/{DomainId}")
+    public Result getRoleDetail(
+            @ApiParam("领域ID") @PathVariable Long DomainId
+    ) {
+        SuperviseDomain superviseDomain = superviseDomainService.getById(DomainId);
+        return Result.success(superviseDomain);
+    }
 
     @ApiOperation(value = "新增督导领域")
     @PostMapping

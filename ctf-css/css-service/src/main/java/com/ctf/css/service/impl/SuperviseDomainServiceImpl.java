@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ctf.common.web.domain.Option;
 import com.ctf.css.converter.SuperviseDomainConverter;
 import com.ctf.css.mapper.SuperviseDomainMapper;
 import com.ctf.css.pojo.entity.SuperviseDomain;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -79,11 +81,32 @@ public class SuperviseDomainServiceImpl extends ServiceImpl<SuperviseDomainMappe
     @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean updateSuperviseDomain(Long superviseDomainId, SuperviseDomainForm superviseDomainForm) {
-        SuperviseDomain superviseDomain = this.baseMapper.selectById(superviseDomainId);
-        superviseDomain.setStatus(superviseDomainForm.getStatus());
-        superviseDomain.setSuperviseDomainName(superviseDomainForm.getSuperviseDomainName());
-        //根据id修改督导领域名称
-        return this.baseMapper.updateById(superviseDomain) >0;
+        QueryWrapper<SuperviseDomain> objectQueryWrapper = new QueryWrapper<>();
+        System.out.println("这里"+this.baseMapper.selectOne(objectQueryWrapper
+                        .eq("supervise_domain_name", superviseDomainForm.getSuperviseDomainName()))
+                .getId());
+        //判断督导领域名称是否存在
+        if (!ObjectUtil.isNotEmpty(this.baseMapper.selectOne(objectQueryWrapper
+                .eq("supervise_domain_name", superviseDomainForm.getSuperviseDomainName())))) {
+            SuperviseDomain superviseDomain = this.baseMapper.selectById(superviseDomainId);
+            superviseDomain.setStatus(superviseDomainForm.getStatus());
+            superviseDomain.setSuperviseDomainName(superviseDomainForm.getSuperviseDomainName());
+            //根据id修改督导领域名称
+            return this.baseMapper.updateById(superviseDomain) >0;
+        }else {
+            //判断是否不修改名称
+            if (Objects.equals(this.baseMapper.selectOne(objectQueryWrapper
+                            .eq("supervise_domain_name", superviseDomainForm.getSuperviseDomainName()))
+                    .getId(), superviseDomainId)){
+                SuperviseDomain superviseDomain = this.baseMapper.selectById(superviseDomainId);
+                superviseDomain.setStatus(superviseDomainForm.getStatus());
+                superviseDomain.setSuperviseDomainName(superviseDomainForm.getSuperviseDomainName());
+                //根据id修改督导领域名称
+                return this.baseMapper.updateById(superviseDomain) >0;
+            }else {
+                throw new RuntimeException("该督导领域名称已存在");
+            }
+        }
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -92,6 +115,11 @@ public class SuperviseDomainServiceImpl extends ServiceImpl<SuperviseDomainMappe
         String[] split = superviseDomainIds.split(",|，");
         List<Long> collect = Arrays.stream(split).map(Long::parseLong).collect(Collectors.toList());
         return this.baseMapper.deleteBatchIds(collect)>0;
+    }
+
+    @Override
+    public List<Option> listRoleOptions() {
+        return null;
     }
 }
 
