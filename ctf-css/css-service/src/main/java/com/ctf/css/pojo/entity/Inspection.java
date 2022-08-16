@@ -69,6 +69,9 @@ public class Inspection extends BaseEntity {
     @TableLogic(value = "0", delval = "1")
     private Integer isDelete;
 
+    /**
+     * 巡检时间
+     */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime inspectionTime;
 

@@ -34,7 +34,7 @@
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
             <result property="status" column="status" jdbcType="VARCHAR"/>
             <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
-            <result property="isDelete" column="is_delete" jdbcType="TINYINT"/>
+            <result property="deleted" column="deleted" jdbcType="TINYINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">

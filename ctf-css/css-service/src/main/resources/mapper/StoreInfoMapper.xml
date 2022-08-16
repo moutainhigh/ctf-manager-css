@@ -8,6 +8,7 @@
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="storeCode" column="store_code" jdbcType="VARCHAR"/>
             <result property="storeName" column="store_name" jdbcType="VARCHAR"/>
+            <result property="bandName" column="band_name" jdbcType="VARCHAR"/>
             <result property="storeManager" column="store_manager" jdbcType="VARCHAR"/>
             <result property="storeSuperManager" column="store_super_manager" jdbcType="VARCHAR"/>
             <result property="storeMobile" column="store_mobile" jdbcType="VARCHAR"/>

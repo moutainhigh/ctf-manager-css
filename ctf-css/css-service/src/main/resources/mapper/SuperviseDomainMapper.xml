@@ -8,7 +8,7 @@
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="superviseDomainName" column="supervise_domain_name" jdbcType="VARCHAR"/>
             <result property="status" column="status" jdbcType="VARCHAR"/>
-            <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+            <result property="deleted" column="deleted" jdbcType="TINYINT"/>
             <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
             <result property="createdBy" column="created_by" jdbcType="BIGINT"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>

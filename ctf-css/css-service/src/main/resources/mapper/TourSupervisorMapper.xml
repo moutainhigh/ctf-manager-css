@@ -9,7 +9,7 @@
             <result property="userId" column="user_id" jdbcType="BIGINT"/>
             <result property="superviseDomainId" column="supervise_domain_id" jdbcType="BIGINT"/>
             <result property="status" column="status" jdbcType="VARCHAR"/>
-            <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+            <result property="deleted" column="deleted" jdbcType="TINYINT"/>
             <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
             <result property="createdBy" column="created_by" jdbcType="BIGINT"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>

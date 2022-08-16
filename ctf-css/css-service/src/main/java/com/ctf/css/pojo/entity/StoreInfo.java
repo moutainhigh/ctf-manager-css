@@ -34,6 +34,11 @@ public class StoreInfo extends BaseEntity {
     private String storeName;
 
     /**
+     * 品牌名称
+     */
+    private String bandName;
+
+    /**
      * 店铺负责人
      */
     private String storeManager;

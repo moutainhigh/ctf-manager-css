@@ -8,9 +8,11 @@ package com.ctf.css;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ctf.css.pojo.query.SupervisorDomainPageQuery;
+import com.ctf.css.pojo.query.TourPlanPageQuery;
 import com.ctf.css.pojo.query.TourSupervisorPageQuery;
 import com.ctf.css.pojo.vo.ex.UserVO;
 import com.ctf.css.service.SuperviseDomainService;
+import com.ctf.css.service.TourPlanService;
 import com.ctf.css.service.TourSupervisorService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,8 @@ public class SuperviseTest {
     private TourSupervisorService tourSupervisorService;
     @Autowired
     private SuperviseDomainService superviseDomainService;
+    @Autowired
+    private TourPlanService tourPlanService;
 
     @Test
     public void testSupervise() throws Exception {
@@ -45,5 +49,13 @@ public class SuperviseTest {
         queryParams.setPageSize(2);
         queryParams.setSuperviseDomainName("a");
         superviseDomainService.pageSupervise(queryParams);
+    }
+
+    @Test
+    public void testTourPage() throws Exception{
+        TourPlanPageQuery queryParams = new TourPlanPageQuery();
+//        queryParams.setStatus("1");
+        queryParams.setArea("闽深区");
+        tourPlanService.pagePlan(queryParams);
     }
 }

@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.ctf.common.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 /**
  * 巡店计划表
@@ -25,6 +28,11 @@ public class TourPlan extends BaseEntity {
     private Long storeId;
 
     /**
+     * 巡检类型（0:独立,1:联合）
+     */
+    private Integer inspectionType;
+
+    /**
      * 督导领域ID
      */
     private Long superviseDomainId;
@@ -38,6 +46,12 @@ public class TourPlan extends BaseEntity {
      * 状态(0未计划 1已计划未分配 2已分配);注：0未计划：代表新加入计划，下一步确认独立还是联合，状态变为1 1已计划未分配：设定巡店时间（按钮分配督导） 2已分配：计划完成，进入任务下发页，准备启动
      */
     private String status;
+
+    /**
+     * 巡店时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime inspectionTime;
 
     /**
      * 删除状态(0-未删除 1-已删除)
