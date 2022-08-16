@@ -33,7 +33,7 @@ public class InspectionPlanController {
 
     @ApiOperation(value = "巡视计划-门店分页列表")
     @GetMapping("/pages")
-    public PageResult listPlanPages(@RequestBody TourPlanPageQuery queryParams) {
+    public PageResult listPlanPages(TourPlanPageQuery queryParams) {
 
         // 分页查询
         Page<TourPlanVo> result = tourPlanService.pagePlan(queryParams);
