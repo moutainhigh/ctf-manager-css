@@ -35,7 +35,6 @@ import java.util.stream.Collectors;
 public class SuperviseDomainServiceImpl extends ServiceImpl<SuperviseDomainMapper, SuperviseDomain>
     implements SuperviseDomainService{
 
-    private final SuperviseDomainMapper superviseDomainMapper;
     private final SuperviseDomainConverter superviseDomainConverter;
 
     @Override
