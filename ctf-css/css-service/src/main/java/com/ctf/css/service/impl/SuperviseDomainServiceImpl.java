@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Array;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -117,8 +117,14 @@ public class SuperviseDomainServiceImpl extends ServiceImpl<SuperviseDomainMappe
     }
 
     @Override
-    public List<Option> listRoleOptions() {
-        return null;
+    public List<Option> listDomainOptions() {
+        List<SuperviseDomain> domainList = this.list(new LambdaQueryWrapper<SuperviseDomain>()
+                .select(SuperviseDomain::getId,SuperviseDomain::getSuperviseDomainName)
+        );
+
+        //实体转换
+        List<Option> list = superviseDomainConverter.domain2Options(domainList);
+        return list;
     }
 }
 

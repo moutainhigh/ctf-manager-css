@@ -50,5 +50,5 @@ public interface SuperviseDomainService extends IService<SuperviseDomain> {
      *
      * @return
      */
-    List<Option> listRoleOptions();
+    List<Option> listDomainOptions();
 }

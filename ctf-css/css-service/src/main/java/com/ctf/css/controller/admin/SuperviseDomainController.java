@@ -45,12 +45,12 @@ public class SuperviseDomainController {
         return PageResult.success(result);
     }
 
-//    @ApiOperation(value = "督导领域下拉列表")
-//    @GetMapping("/options")
-//    public Result<List<Option>> listRoleOptions() {
-//        List<Option> list = sysRoleService.listRoleOptions();
-//        return Result.success(list);
-//    }
+    @ApiOperation(value = "督导领域下拉列表")
+    @GetMapping("/options")
+    public Result<List<Option>> listRoleOptions() {
+        List<Option> list = superviseDomainService.listDomainOptions();
+        return Result.success(list);
+    }
 
     @ApiOperation(value = "督导领域详情")
     @GetMapping("/{DomainId}")

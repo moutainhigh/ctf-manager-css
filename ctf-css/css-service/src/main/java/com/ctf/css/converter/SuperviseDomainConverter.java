@@ -1,9 +1,15 @@
 package com.ctf.css.converter;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ctf.common.web.domain.Option;
 import com.ctf.css.pojo.entity.SuperviseDomain;
+import com.ctf.css.pojo.form.SuperviseDomainForm;
 import com.ctf.css.pojo.vo.ex.SuperviseDomainVo;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
+
+import java.util.List;
 
 /**
  * @Author zhangyizheng
@@ -13,4 +19,13 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface SuperviseDomainConverter {
     Page<SuperviseDomainVo> pageEntityToVo(Page<SuperviseDomain> page);
+
+    @Mappings({
+            @Mapping(target = "value", source = "id"),
+            @Mapping(target = "label", source = "superviseDomainName")
+    })
+    Option domain2Option(SuperviseDomain domain);
+
+    List<Option> domain2Options(List<SuperviseDomain> domain);
+
 }
