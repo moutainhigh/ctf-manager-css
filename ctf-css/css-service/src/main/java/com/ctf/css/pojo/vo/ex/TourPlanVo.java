@@ -1,6 +1,9 @@
 package com.ctf.css.pojo.vo.ex;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 /**
  * @Author zhangyizheng
@@ -72,4 +75,15 @@ public class TourPlanVo {
      * 巡店督导员名
      */
     private String supervisorName;
+
+    /**
+     * 巡店时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime inspectionTime;
+
+    /**
+     * 巡检类型（0:独立,1:联合）
+     */
+    private Integer inspectionType;
 }

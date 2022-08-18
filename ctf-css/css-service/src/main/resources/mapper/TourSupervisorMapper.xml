@@ -45,7 +45,7 @@
                  LEFT JOIN store_supervise_domain ssd
                            on sts.supervise_domain_id = ssd.id
         <where>
-            sts.is_deleted = 0
+            sts.deleted = 0
             <if test="query.staffCode != null and query.staffCode != ''">
                 AND ui.staff_code = #{query.staffCode}
             </if>

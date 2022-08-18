@@ -11,7 +11,7 @@ import java.util.List;
  * @Date 2022/8/16 16:21
  * @Describe PlanToInspection
  */
-@Mapper
+@Mapper(componentModel = "spring")
 public interface InspectionConverter {
     List<Inspection> planToInspection(List<TourPlan> tourPlans);
 }

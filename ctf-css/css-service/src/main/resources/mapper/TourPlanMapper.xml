@@ -25,11 +25,13 @@
         <result property="storeSuperManager" column="store_super_manager" jdbcType="VARCHAR"/>
         <result property="storeMobile" column="store_mobile" jdbcType="VARCHAR"/>
         <result property="storeArea" column="store_area" jdbcType="VARCHAR"/>
+        <result property="inspectionTime" column="inspection_time" jdbcType="VARCHAR"/>
         <result property="storeType" column="store_type" jdbcType="VARCHAR"/>
         <result property="storePic" column="store_pic" jdbcType="VARCHAR"/>
         <result property="lngAndLat" column="lng_lat" jdbcType="VARCHAR"/>
         <result property="status" column="status" jdbcType="VARCHAR"/>
         <result property="supervisorName" column="staff_name" jdbcType="VARCHAR"/>
+        <result property="inspectionType" column="inspection_type" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -43,7 +45,7 @@
         SELECT stp.id ,stp.status ,stp.inspection_time ,si.store_code ,
                si.store_name  ,si.store_manager ,si.store_super_manager ,
                si.store_mobile ,si.store_area ,si.store_type ,si.store_pic ,
-               CONCAT(si.lng,',',si.lat) lng_lat,ui.staff_name
+               CONCAT(si.lng,',',si.lat) lng_lat,ui.staff_name,stp.inspection_type
         FROM store_info si
                  LEFT join store_tour_plan stp
                            on stp.store_id = si.id
