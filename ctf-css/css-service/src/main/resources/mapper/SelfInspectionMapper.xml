@@ -16,6 +16,21 @@
             <result property="updatedBy" column="updated_by" jdbcType="VARCHAR"/>
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     </resultMap>
+    <resultMap id="Base2ResultMap" type="com.ctf.css.pojo.vo.ex.InspectionVO">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="storeCode" column="store_code" jdbcType="VARCHAR"/>
+        <result property="storeName" column="store_name" jdbcType="VARCHAR"/>
+        <result property="inspectionType" column="inspection_type" jdbcType="TINYINT"/>
+        <result property="storeArea" column="store_area" jdbcType="VARCHAR"/>
+        <result property="storeType" column="store_type" jdbcType="VARCHAR"/>
+        <result property="inspectionCycle" column="inspection_cycle" jdbcType="VARCHAR"/>
+        <result property="schemeId" column="scheme_id" jdbcType="BIGINT"/>
+        <result property="supervisorDomainName" column="supervisor_domain_name" jdbcType="VARCHAR"/>
+        <result property="storeManager" column="store_manager" jdbcType="VARCHAR"/>
+        <result property="inspectionTime" column="inspection_time" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="isRectification" column="is_rectification" jdbcType="VARCHAR"/>
+    </resultMap>
 
     <sql id="Base_Column_List">
         id,store_id,supervise_domain_id,
@@ -23,4 +38,38 @@
         created_by,create_time,updated_by,
         update_time
     </sql>
+
+    <select id="getInspectionPage" resultMap="Base2ResultMap">
+        SELECT ssi.id ,ssi.status ,si.store_code ,ssd.supervise_domain_name,
+               si.store_name  ,si.store_manager ,si.store_super_manager ,
+               si.store_mobile ,si.store_area ,si.store_type ,si.store_pic
+        FROM store_info si
+                 LEFT join store_self_inspection ssi
+                           on ssi.store_id = si.id
+                 LEFT JOIN store_supervise_domain ssd
+                           on ssi.supervise_domain_id  = ssd.id
+        <where>
+            <if test="query.bandName != null and query.bandName != ''">
+                and si.band_name like concat('%',#{query.bandName},'%')
+            </if>
+            <if test="query.storeType != null and query.storeType != ''">
+                and si.storeType = #{query.storeType}
+            </if>
+            <if test="query.area != null and query.area != ''">
+                and si.store_area like concat('%',#{query.area},'%')
+            </if>
+            <if test="query.bigArea != null and query.bigArea != ''">
+                and si.store_area like concat('%',#{query.area},'%')
+            </if>
+            <if test="query.smallArea != null and query.smallArea != ''">
+                and si.store_area like concat('%',#{query.area},'%')
+            </if>
+            <if test="query.status == null">
+                and ssi.status is null
+            </if>
+            <if test="query.status != null and query.status != ''">
+                and ssi.status = #{query.status}
+            </if>
+        </where>
+    </select>
 </mapper>

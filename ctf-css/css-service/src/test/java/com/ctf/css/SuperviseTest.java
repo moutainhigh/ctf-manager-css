@@ -7,13 +7,9 @@ package com.ctf.css;
  */
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.ctf.css.pojo.query.SupervisorDomainPageQuery;
-import com.ctf.css.pojo.query.TourPlanPageQuery;
-import com.ctf.css.pojo.query.TourSupervisorPageQuery;
+import com.ctf.css.pojo.query.*;
 import com.ctf.css.pojo.vo.ex.UserVO;
-import com.ctf.css.service.SuperviseDomainService;
-import com.ctf.css.service.TourPlanService;
-import com.ctf.css.service.TourSupervisorService;
+import com.ctf.css.service.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,6 +22,10 @@ public class SuperviseTest {
     private SuperviseDomainService superviseDomainService;
     @Autowired
     private TourPlanService tourPlanService;
+    @Autowired
+    private InspectionService inspectionService;
+    @Autowired
+    private SelfInspectionService selfInspectionService;
 
     @Test
     public void testSupervise() throws Exception {
@@ -57,5 +57,21 @@ public class SuperviseTest {
 //        queryParams.setStatus("1");
         queryParams.setArea("闽深区");
         tourPlanService.pagePlan(queryParams);
+    }
+
+    @Test
+    public void testInspectionPage() throws Exception{
+        SelfInspectionPageQuery queryParams = new SelfInspectionPageQuery();
+//        queryParams.setStatus("1");
+//        queryParams.setArea("闽深区");
+        selfInspectionService.pageInspection(queryParams);
+    }
+
+    @Test
+    public void testInspectionsPage() throws Exception{
+        InspectionPageQuery queryParams = new InspectionPageQuery();
+//        queryParams.setStatus("1");
+//        queryParams.setArea("闽深区");
+        inspectionService.pageInspection(queryParams);
     }
 }

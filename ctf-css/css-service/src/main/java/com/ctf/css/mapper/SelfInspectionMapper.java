@@ -1,8 +1,14 @@
 package com.ctf.css.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ctf.css.pojo.entity.SelfInspection;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ctf.css.pojo.query.SelfInspectionPageQuery;
+import com.ctf.css.pojo.vo.ex.InspectionVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 
 /**
 * @author zhangyizheng
@@ -13,6 +19,13 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SelfInspectionMapper extends BaseMapper<SelfInspection> {
 
+    /**
+     * 自检-条件分页查询
+     * @param page 分页对象
+     * @param queryParams 分页条件
+     * @return
+     */
+    Page<InspectionVO> getInspectionPage(IPage<InspectionVO> page,@Param("query") SelfInspectionPageQuery queryParams);
 }
 
 

@@ -14,12 +14,27 @@
             <result property="schemeId" column="scheme_id" jdbcType="BIGINT"/>
             <result property="status" column="status" jdbcType="VARCHAR"/>
             <result property="isRectification" column="is_rectification" jdbcType="VARCHAR"/>
-            <result property="isDelete" column="is_delete" jdbcType="TINYINT"/>
+            <result property="deleted" column="deleted" jdbcType="TINYINT"/>
             <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
             <result property="createdBy" column="created_by" jdbcType="BIGINT"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="updatedBy" column="updated_by" jdbcType="BIGINT"/>
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="Base2ResultMap" type="com.ctf.css.pojo.vo.ex.InspectionVO">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="storeCode" column="store_code" jdbcType="VARCHAR"/>
+        <result property="storeName" column="store_name" jdbcType="VARCHAR"/>
+        <result property="inspectionType" column="inspection_type" jdbcType="TINYINT"/>
+        <result property="storeArea" column="store_area" jdbcType="VARCHAR"/>
+        <result property="storeType" column="store_type" jdbcType="VARCHAR"/>
+        <result property="inspectionCycle" column="inspection_cycle" jdbcType="VARCHAR"/>
+        <result property="schemeId" column="scheme_id" jdbcType="BIGINT"/>
+        <result property="supervisorDomainName" column="supervisor_domain_name" jdbcType="VARCHAR"/>
+        <result property="storeManager" column="store_manager" jdbcType="VARCHAR"/>
+        <result property="inspectionTime" column="inspection_time" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="isRectification" column="is_rectification" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -29,4 +44,51 @@
         is_delete,remarks,created_by,
         create_time,updated_by,update_time
     </sql>
+
+    <select id="getListInspectionsPage" resultMap="Base2ResultMap">
+        SELECT sis.id ,sis.status ,si.store_code ,ssd.supervise_domain_name,
+               sis.inspection_cycle,sis.scheme_id,sis.inspection_time,
+               sis.is_rectification,si.store_name  ,si.store_manager ,
+               si.store_super_manager ,si.store_mobile ,si.store_area ,
+               si.store_type ,si.store_pic,ui.staff_name,sis.inspection_type
+        FROM store_inspection sis
+                 LEFT join store_info si
+                           on sis.store_id = si.id
+                 LEFT JOIN store_supervise_domain ssd
+                           on sis.supervise_domain_id  = ssd.id
+                 LEFT JOIN user_info ui
+                           on sis.supervise_id  = ui.id
+        <where>
+            sis.deleted = 0
+            <if test="query.keywords != null and query.keywords != ''">
+                AND ( si.store_name like concat('%',#{query.keywords},'%')
+                or si.store_code like concat('%',#{query.keywords},'%') )
+            </if>
+            <if test="query.status != null and query.status != ''">
+                and sis.status = #{query.status}
+            </if>
+        </where>
+        UNION ALL
+
+        SELECT ssi.id ,ssi.status ,si.store_code ,ssd.supervise_domain_name,
+                ssi.inspection_cycle,ssi.scheme_id,ssi.inspection_time,
+                ssi.is_rectification,si.store_name ,si.store_manager ,
+                si.store_super_manager ,si.store_mobile ,si.store_area ,
+                si.store_type ,si.store_pic,'无' staff_name,ssi.inspection_type
+        FROM store_info si
+            LEFT join store_self_inspection ssi
+                    on ssi.store_id = si.id
+            LEFT JOIN store_supervise_domain ssd
+                    on ssi.supervise_domain_id = ssd.id
+        <where>
+            ssi.deleted = 0
+            <if test="query.keywords != null and query.keywords != ''">
+                AND ( si.store_name like concat('%',#{query.keywords},'%')
+                or si.store_code like concat('%',#{query.keywords},'%') )
+            </if>
+            <if test="query.status != null and query.status != ''">
+                and ssi.status = #{query.status}
+            </if>
+        </where>
+    </select>
 </mapper>

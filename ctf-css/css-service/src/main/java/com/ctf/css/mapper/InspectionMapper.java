@@ -1,8 +1,13 @@
 package com.ctf.css.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ctf.css.pojo.entity.Inspection;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ctf.css.pojo.query.InspectionPageQuery;
+import com.ctf.css.pojo.vo.ex.InspectionVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
 * @author zhangyizheng
@@ -13,6 +18,13 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface InspectionMapper extends BaseMapper<Inspection> {
 
+    /**
+     * 巡检分页查询
+     * @param page
+     * @param queryParams 条件
+     * @return
+     */
+    Page<InspectionVO> getListInspectionsPage(IPage<InspectionVO> page,@Param("query") InspectionPageQuery queryParams);
 }
 
 

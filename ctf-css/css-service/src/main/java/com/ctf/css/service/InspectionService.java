@@ -1,7 +1,10 @@
 package com.ctf.css.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ctf.css.pojo.entity.Inspection;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ctf.css.pojo.query.InspectionPageQuery;
+import com.ctf.css.pojo.vo.ex.InspectionVO;
 
 /**
 * @author zhangyizheng
@@ -22,4 +25,10 @@ public interface InspectionService extends IService<Inspection> {
      */
     public static final String COMPLETED = "2";
 
+    /**
+     * 巡检分页查询接口
+     * @param queryParams 分页条件
+     * @return
+     */
+    Page<InspectionVO> pageInspection(InspectionPageQuery queryParams);
 }

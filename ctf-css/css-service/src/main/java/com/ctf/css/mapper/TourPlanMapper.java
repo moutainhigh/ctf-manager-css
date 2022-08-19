@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ctf.css.pojo.query.TourPlanPageQuery;
 import com.ctf.css.pojo.vo.ex.TourPlanVo;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.data.repository.query.Param;
+import org.apache.ibatis.annotations.Param;
 
 /**
 * @author zhangyizheng
