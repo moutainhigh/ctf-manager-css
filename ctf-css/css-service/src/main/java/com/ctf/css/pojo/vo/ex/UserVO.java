@@ -62,4 +62,8 @@ public class UserVO {
      */
     private String superviseDomainName;
 
+    /**
+     * 状态
+     */
+    private String status;
 }
