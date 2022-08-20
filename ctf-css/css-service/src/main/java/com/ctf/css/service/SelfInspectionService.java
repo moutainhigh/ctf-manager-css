@@ -19,4 +19,11 @@ public interface SelfInspectionService extends IService<SelfInspection> {
      * @return
      */
     Page<InspectionVO> pageInspection(SelfInspectionPageQuery queryParams);
+
+    /**
+     * 加入自检-批量-状态变未启动
+     * @param staffCodes
+     * @return
+     */
+    boolean saveSelfInspection(String staffCodes);
 }

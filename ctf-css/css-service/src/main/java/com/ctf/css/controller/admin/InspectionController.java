@@ -2,6 +2,8 @@ package com.ctf.css.controller.admin;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ctf.common.result.PageResult;
+import com.ctf.common.result.Result;
+import com.ctf.css.pojo.dto.InspectionDTO;
 import com.ctf.css.pojo.query.InspectionPageQuery;
 import com.ctf.css.pojo.query.SelfInspectionPageQuery;
 import com.ctf.css.pojo.vo.ex.InspectionVO;
@@ -12,9 +14,10 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @Author zhangyizheng
@@ -48,10 +51,24 @@ public class InspectionController {
         return PageResult.success(result);
     }
 
-//    @ApiOperation(value = "加入巡检-批量-完全")
-//    @GetMapping("/{staffCodes}")
-//    public Result saveInspectionPlan(@ApiParam(value = "门店编码，多个用,分割") @PathVariable("staffCodes") @Validated String staffCodes) {
-//        boolean result = tourPlanService.saveInspectionPlan(staffCodes);
-//        return Result.judge(result);
-//    }
+    @ApiOperation(value = "加入自检-批量-未启动")
+    @GetMapping("/{staffCodes}")
+    public Result saveSelfInspection(@ApiParam(value = "门店编码，多个用,分割") @PathVariable("staffCodes") @Validated String staffCodes) {
+        boolean result = selfInspectionService.saveSelfInspection(staffCodes);
+        return Result.judge(result);
+    }
+
+    @ApiOperation(value = "未启动-启动-进行中")
+    @PostMapping("/start")
+    public Result startInspection(@ApiParam(value = "门店任务未启动对象（ID+类型）") @RequestBody InspectionDTO dto) {
+        boolean result = inspectionService.startInspection(dto);
+        return Result.judge(result);
+    }
+
+    @ApiOperation(value = "未启动-删除")
+    @PostMapping("/delete")
+    public Result deleteInspection(@ApiParam(value = "门店任务未启动对象（ID+类型）") @RequestBody InspectionDTO dto) {
+        boolean result = inspectionService.deleteInspection(dto);
+        return Result.judge(result);
+    }
 }
