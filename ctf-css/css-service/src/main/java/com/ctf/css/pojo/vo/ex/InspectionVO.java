@@ -48,9 +48,9 @@ public class InspectionVO {
     private String inspectionCycle;
 
     /**
-     * 巡检方案ID
+     * 巡检方案
      */
-    private Long schemeId;
+    private String schemeName;
 
     /**
      * 督导领域名

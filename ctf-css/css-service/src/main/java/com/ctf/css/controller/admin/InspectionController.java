@@ -17,8 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 /**
  * @Author zhangyizheng
  * @Date 2022/8/8 14:37
@@ -66,9 +64,16 @@ public class InspectionController {
     }
 
     @ApiOperation(value = "未启动-删除")
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public Result deleteInspection(@ApiParam(value = "门店任务未启动对象（ID+类型）") @RequestBody InspectionDTO dto) {
         boolean result = inspectionService.deleteInspection(dto);
         return Result.judge(result);
     }
+
+//    @ApiOperation(value = "进行中-停止")
+//    @PostMapping("/stop")
+//    public Result stopInspection(@ApiParam(value = "门店任务未启动对象（ID+类型）") @RequestBody InspectionDTO dto) {
+//        boolean result = inspectionService.stopInspection(dto);
+//        return Result.judge(result);
+//    }
 }
