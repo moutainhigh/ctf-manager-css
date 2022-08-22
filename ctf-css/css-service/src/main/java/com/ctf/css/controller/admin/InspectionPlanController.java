@@ -68,12 +68,4 @@ public class InspectionPlanController {
         boolean result = tourPlanService.taskIssued(ids);
         return Result.judge(result);
     }
-
-//    // TODO: 2022/8/11    @RequirePerms(value = "sys:user:delete")暂时未考虑权限问题
-//    @ApiOperation(value = "删除督导人员")
-//    @DeleteMapping("/{ids}")
-//    public Result deleteUsers(@ApiParam("督导人员ID，多个以英文逗号(,)分割") @PathVariable String ids) {
-//        boolean result = tourSupervisorService.deleteSupervisors(ids);
-//        return Result.judge(result);
-//    }
 }

@@ -2,6 +2,8 @@ package com.ctf.css.controller.admin;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ctf.common.result.PageResult;
+import com.ctf.common.result.Result;
+import com.ctf.css.pojo.form.SuperviseForm;
 import com.ctf.css.pojo.query.InspectionPageQuery;
 import com.ctf.css.pojo.query.RestultPageQuery;
 import com.ctf.css.pojo.query.SelfInspectionPageQuery;
@@ -16,6 +18,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,5 +52,12 @@ public class ResultController {
         // 分页查询
         Page<InspectionResultVO> result = inspectionResultService.pageInspectionResult(queryParams);
         return PageResult.success(result);
+    }
+
+    @ApiOperation(value = "巡检结果-是否整改")
+    @GetMapping("/rectification/{id}")
+    public Result isRectification(@ApiParam(value = "巡检结果ID") @PathVariable("id") Long id) {
+        boolean result = inspectionResultService.isRectification(id);
+        return Result.judge(result);
     }
 }

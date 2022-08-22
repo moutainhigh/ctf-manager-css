@@ -1,8 +1,8 @@
 package com.ctf.css.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.ctf.css.pojo.entity.InspectionResult;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ctf.css.pojo.entity.InspectionResult;
 import com.ctf.css.pojo.query.RestultPageQuery;
 import com.ctf.css.pojo.vo.ex.InspectionResultVO;
 
@@ -19,4 +19,11 @@ public interface InspectionResultService extends IService<InspectionResult> {
      * @return
      */
     Page<InspectionResultVO> pageInspectionResult(RestultPageQuery queryParams);
+
+    /**
+     * 巡检结果-是否整改
+     * @param id 巡检结果ID
+     * @return
+     */
+    boolean isRectification(Long id);
 }
