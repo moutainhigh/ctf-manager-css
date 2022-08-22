@@ -26,6 +26,10 @@ public class SuperviseTest {
     private InspectionService inspectionService;
     @Autowired
     private SelfInspectionService selfInspectionService;
+    @Autowired
+    private InspectionResultService inspectionResultService;
+    @Autowired
+    private SelfInspectionResultService selfInspectionResultService;
 
     @Test
     public void testSupervise() throws Exception {
@@ -73,5 +77,21 @@ public class SuperviseTest {
 //        queryParams.setStatus("1");
 //        queryParams.setArea("闽深区");
         inspectionService.pageInspection(queryParams);
+    }
+
+    @Test
+    public void testResultInspectionsPage() throws Exception{
+        RestultPageQuery queryParams = new RestultPageQuery();
+//        queryParams.setStatus("1");
+//        queryParams.setArea("闽深区");
+        inspectionResultService.pageInspectionResult(queryParams);
+    }
+
+    @Test
+    public void testSelfResultInspectionsPage() throws Exception{
+        RestultPageQuery queryParams = new RestultPageQuery();
+//        queryParams.setStatus("1");
+//        queryParams.setArea("闽深区");
+        selfInspectionResultService.pageSelfResult(queryParams);
     }
 }

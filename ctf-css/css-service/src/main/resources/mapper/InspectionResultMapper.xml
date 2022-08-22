@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctf.css.mapper.InspectionResultMapper">
+
+    <resultMap id="BaseResultMap" type="com.ctf.css.pojo.entity.InspectionResult">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="inspectionId" column="inspection_id" jdbcType="BIGINT"/>
+            <result property="score" column="score" jdbcType="INTEGER"/>
+            <result property="deleted" column="deleted" jdbcType="TINYINT"/>
+            <result property="createdBy" column="created_by" jdbcType="BIGINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updatedBy" column="updated_by" jdbcType="BIGINT"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="Base2ResultMap" type="com.ctf.css.pojo.vo.ex.InspectionResultVO">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="storeCode" column="store_code" jdbcType="VARCHAR"/>
+        <result property="storeName" column="store_name" jdbcType="VARCHAR"/>
+        <result property="inspectionType" column="inspection_type" jdbcType="TINYINT"/>
+        <result property="inspectionCycle" column="inspection_cycle" jdbcType="VARCHAR"/>
+        <result property="schemeName" column="scheme_name" jdbcType="VARCHAR"/>
+        <result property="supervisorDomainName" column="supervisor_domain_name" jdbcType="VARCHAR"/>
+        <result property="storeManager" column="store_manager" jdbcType="VARCHAR"/>
+        <result property="supervisor" column="staff_name" jdbcType="VARCHAR"/>
+        <result property="score" column="score" jdbcType="INTEGER"/>
+        <result property="inspectionTime" column="inspection_time" jdbcType="TIMESTAMP"/>
+        <result property="isRectification" column="is_rectification" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,inspection_id,score,
+        deleted,created_by,create_time,
+        updated_by,update_time
+    </sql>
+
+    <select id="pageInspectionResult" resultMap="Base2ResultMap">
+        SELECT sir.id ,si.store_code ,sis.inspection_cycle ,sis.inspection_type ,
+               sir.score ,si.store_name  ,sis.inspection_time ,ssd.supervise_domain_name ,
+               ui.staff_name ,sis.is_rectification ,sts.scheme_name
+        FROM store_inspection_result sir
+                 LEFT JOIN store_inspection sis
+                           on sis.id = sir.inspection_id
+                 LEFT JOIN store_supervise_domain ssd
+                           on sis.supervise_domain_id = ssd.id
+                 LEFT JOIN user_info ui
+                           on sis.supervise_id = ui.id
+                 left join store_info si
+                           on sis.store_id = si.id
+                 LEFT JOIN store_tour_scheme sts
+                           on sts.id = sis.scheme_id
+        <where>
+            sir.deleted = 0
+            <if test="query.bandName != null and query.bandName != ''">
+                and si.band_name like concat('%',#{query.bandName},'%')
+            </if>
+            <if test="query.storeType != null and query.storeType != ''">
+                and si.store_type like concat('%',#{query.storeType},'%')
+            </if>
+            <if test="query.area != null and query.area != ''">
+                and si.store_area like concat('%',#{query.area},'%')
+            </if>
+            <if test="query.bigArea != null and query.bigArea != ''">
+                and si.store_area like concat('%',#{query.area},'%')
+            </if>
+            <if test="query.smallArea != null and query.smallArea != ''">
+                and si.store_area like concat('%',#{query.area},'%')
+            </if>
+            <if test="query.staffName != null and query.staffName != ''">
+                and ui.staff_name like concat('%',#{query.staffName},'%')
+            </if>
+            <if test="query.inspectionType != null and query.inspectionType != ''">
+                and sis.inspection_type = #{query.inspectionType}
+            </if>
+            <if test="query.staffCode != null and query.staffCode != ''">
+                and ui.staff_code = #{query.staffCode}
+            </if>
+            <if test="query.superviseDomainName != null and query.superviseDomainName != ''">
+                and ssd.supervise_domain_name = concat('%',#{query.superviseDomainName},'%')
+            </if>
+        </where>
+    </select>
+</mapper>
