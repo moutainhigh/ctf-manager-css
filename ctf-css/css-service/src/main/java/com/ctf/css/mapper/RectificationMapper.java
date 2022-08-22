@@ -1,8 +1,13 @@
 package com.ctf.css.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ctf.css.pojo.entity.Rectification;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ctf.css.pojo.query.RestultPageQuery;
+import com.ctf.css.pojo.vo.ex.RectificationVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
 * @author zhangyizheng
@@ -13,6 +18,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface RectificationMapper extends BaseMapper<Rectification> {
 
+    Page<RectificationVO> pageRectificationList(IPage<RectificationVO> page,@Param("query") RestultPageQuery queryParams);
 }
 
 

@@ -39,6 +39,11 @@ public class Rectification extends BaseEntity {
     private Long superviseId;
 
     /**
+     * 巡检记录ID
+     */
+    private Long inspectionId;
+
+    /**
      * 巡检类型 0独立巡检 1联合巡检
      */
     private String inspectionType;

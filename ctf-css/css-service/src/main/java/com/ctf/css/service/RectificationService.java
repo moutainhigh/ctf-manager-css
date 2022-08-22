@@ -1,7 +1,10 @@
 package com.ctf.css.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ctf.css.pojo.entity.Rectification;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ctf.css.pojo.query.RestultPageQuery;
+import com.ctf.css.pojo.vo.ex.RectificationVO;
 
 /**
 * @author zhangyizheng
@@ -10,4 +13,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface RectificationService extends IService<Rectification> {
 
+    /**
+     * 整改结果-分页查询
+     * @param queryParams 分页条件
+     * @return
+     */
+    Page<RectificationVO> pageRectification(RestultPageQuery queryParams);
 }

@@ -45,6 +45,7 @@ public class InspectionResultServiceImpl extends ServiceImpl<InspectionResultMap
         Inspection inspection = inspectionService.getById(inspectionResult.getInspectionId());
         // TODO: 2022/8/22 查干此巡检记录，是否需要整改
         Rectification rectification = inspectionConverter.Inspection2Rectification(inspection);
+        rectification.setInspectionId(id);
         rectification.setId(null);
         // TODO: 2022/8/22 将信息添加到整改结果中 修改状态，添加整改项
         return rectificationService.save(rectification);
