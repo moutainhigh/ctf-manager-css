@@ -95,22 +95,21 @@ public class TourPlanServiceImpl extends ServiceImpl<TourPlanMapper, TourPlan>
     public boolean selectSupervisorAndType(InspectionPlanForm form) {
         Optional.ofNullable(form.getId()).orElseThrow(() -> new IllegalArgumentException("未选择需分配的计划对象"));
         Optional.ofNullable(form.getInspectionType()).orElseThrow(() -> new IllegalArgumentException("未选择巡检类型"));
-        Optional.ofNullable(form.getSupervisors()).orElseThrow(() -> new IllegalArgumentException("未填写督导人员"));
-        Optional.ofNullable(form.getInspectionTime()).orElseThrow(() -> new IllegalArgumentException("未填写巡检时间"));
+        Optional.ofNullable(form.getSupervisorForms()).orElseThrow(() -> new IllegalArgumentException("未填写督导人员与时间信息"));
         TourPlan tourPlan = this.baseMapper.selectById(form.getId());
         //通过ID查询巡检记录，修改时间与状态为2（已分配），添加督导人员和领域和时间
         tourPlan.setStatus(TourPlanService.ALLOCATED);
-        tourPlan.setInspectionTime(form.getInspectionTime());
         //  2022/8/16 分联合巡检与独立巡检 独立巡检只能一个督导，联合巡检一个对多个督导
         if (TourPlanService.TYPE_INDEPENDENT==form.getInspectionType()) {
-            if (1<form.getSupervisors().size()) {
+            if (1<form.getSupervisorForms().size()) {
                 throw new IllegalArgumentException("数据异常");
             }
             //独立巡检，只需修改状态与添加人员与领域
-            form.getSupervisors().forEach(item -> {
+            form.getSupervisorForms().forEach(item -> {
                 //  2022/8/16 注意联合会有多个督导 联合巡检在此之后，生成多条已分配记录
                 tourPlan.setSuperviseId(item.getId());
                 tourPlan.setSuperviseDomainId(item.getSuperviseDomainId());
+                tourPlan.setInspectionTime(item.getInspectionTime());
                 this.updateById(tourPlan);
             });
         }else {
@@ -118,10 +117,11 @@ public class TourPlanServiceImpl extends ServiceImpl<TourPlanMapper, TourPlan>
             this.baseMapper.deleteById(form.getId());
             tourPlan.setId(null);
             //联合巡检，会生成多条巡检计划记录，每一人员一条
-            form.getSupervisors().forEach(item -> {
+            form.getSupervisorForms().forEach(item -> {
                 //  2022/8/16 注意联合会有多个督导 联合巡检在此之后，生成多条已分配记录
                 tourPlan.setSuperviseId(item.getId());
                 tourPlan.setSuperviseDomainId(item.getSuperviseDomainId());
+                tourPlan.setInspectionTime(item.getInspectionTime());
                 this.baseMapper.insert(tourPlan);
             });
         }

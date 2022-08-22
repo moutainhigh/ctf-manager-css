@@ -22,16 +22,11 @@ public class InspectionPlanForm {
     /**
      * 督导员
      */
-    private List<TourSupervisor> supervisors;
+    private List<SupervisorForm> supervisorForms;
 
     /**
      * 巡检类型（0:独立,1:联合）
      */
     private Integer inspectionType;
 
-    /**
-     * 巡店时间
-     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime inspectionTime;
 }
