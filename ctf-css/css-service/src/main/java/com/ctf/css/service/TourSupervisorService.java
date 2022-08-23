@@ -1,11 +1,14 @@
 package com.ctf.css.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ctf.common.web.domain.Option;
 import com.ctf.css.pojo.entity.TourSupervisor;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ctf.css.pojo.form.SuperviseForm;
 import com.ctf.css.pojo.query.TourSupervisorPageQuery;
 import com.ctf.css.pojo.vo.ex.UserVO;
+
+import java.util.List;
 
 /**
 * @author zhangyizheng
@@ -49,4 +52,6 @@ public interface TourSupervisorService extends IService<TourSupervisor> {
      * @return
      */
     boolean deleteSupervisors(String ids);
+
+    List<Option> listSupervisorOptions(Long domainId);
 }

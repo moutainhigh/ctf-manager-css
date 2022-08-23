@@ -3,6 +3,7 @@ package com.ctf.css.pojo.form;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -28,6 +29,7 @@ public class SupervisorForm {
     /**
      * 巡店时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime inspectionTime;
 }

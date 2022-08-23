@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ctf.common.result.ResultCode;
+import com.ctf.common.web.domain.Option;
 import com.ctf.css.converter.SupervisorConverter;
 import com.ctf.css.mapper.TourSupervisorMapper;
 import com.ctf.css.pojo.entity.SuperviseDomain;
@@ -19,10 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -33,7 +31,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class TourSupervisorServiceImpl extends ServiceImpl<TourSupervisorMapper, TourSupervisor>
-    implements TourSupervisorService{
+    implements TourSupervisorService {
 
     private final UserInfoService userInfoService;
     private final SupervisorConverter supervisorConverter;
@@ -104,6 +102,21 @@ public class TourSupervisorServiceImpl extends ServiceImpl<TourSupervisorMapper,
         return this.baseMapper.deleteBatchIds(collect)>0;
     }
 
+    @Override
+    public List<Option> listSupervisorOptions(Long domainId) {
+        List<TourSupervisor> supervisorList = this.getBaseMapper().selectList(new LambdaQueryWrapper<TourSupervisor>()
+                .eq(TourSupervisor::getSuperviseDomainId,domainId));
+
+        List<Option> list = new ArrayList<>();
+        supervisorList.stream().forEach(item -> {
+            UserInfo userInfo = userInfoService.getById(item.getUserId());
+            Option<Object> option = new Option<>();
+            option.setLabel(userInfo.getStaffName());
+            option.setValue(item.getId());
+            list.add(option);
+        });
+        return list;
+    }
 }
 
 

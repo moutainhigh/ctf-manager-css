@@ -47,7 +47,7 @@ public class SuperviseDomainController {
 
     @ApiOperation(value = "督导领域下拉列表")
     @GetMapping("/options")
-    public Result<List<Option>> listRoleOptions() {
+    public Result<List<Option>> listDomainOptions() {
         List<Option> list = superviseDomainService.listDomainOptions();
         return Result.success(list);
     }

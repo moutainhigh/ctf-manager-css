@@ -1,8 +1,14 @@
 package com.ctf.css.converter;
 
+import com.ctf.common.web.domain.Option;
+import com.ctf.css.pojo.entity.TourSupervisor;
 import com.ctf.css.pojo.entity.UserInfo;
 import com.ctf.css.pojo.form.SuperviseForm;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
+
+import java.util.List;
 
 /**
  * @Author zhangyizheng

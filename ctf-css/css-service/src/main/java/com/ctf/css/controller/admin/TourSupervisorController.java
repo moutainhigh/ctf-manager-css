@@ -3,6 +3,7 @@ package com.ctf.css.controller.admin;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ctf.common.result.PageResult;
 import com.ctf.common.result.Result;
+import com.ctf.common.web.domain.Option;
 import com.ctf.common.web.security.annotation.RequirePerms;
 import com.ctf.css.pojo.form.SuperviseForm;
 import com.ctf.css.pojo.query.TourSupervisorPageQuery;
@@ -15,6 +16,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @Author zhangyizheng
@@ -37,6 +40,13 @@ public class TourSupervisorController {
         // 分页查询
         Page<UserVO> result = tourSupervisorService.pageSupervisor(queryParams);
         return PageResult.success(result);
+    }
+
+    @ApiOperation(value = "根据督导领域，得到督导人员下拉列表")
+    @GetMapping("/options/{domainId}")
+    public Result<List<Option>> listSupervisorOptions(@PathVariable Long domainId) {
+        List<Option> list = tourSupervisorService.listSupervisorOptions(domainId);
+        return Result.success(list);
     }
 
     @ApiOperation(value = "督导人员表单数据")
