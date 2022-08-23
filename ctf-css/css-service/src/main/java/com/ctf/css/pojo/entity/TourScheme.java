@@ -44,7 +44,7 @@ public class TourScheme extends BaseEntity {
     /**
      * 题目数量
      */
-    private String schemeTopicNum;
+    private Integer schemeTopicNum;
 
     /**
      * 状态(0未收集 1收集中 2已停止，方案不可用)

@@ -19,6 +19,16 @@
             <result property="updatedBy" column="updated_by" jdbcType="BIGINT"/>
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     </resultMap>
+    <resultMap id="Base2ResultMap" type="com.ctf.css.pojo.vo.ex.TourSchemeVO">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="schemeCode" column="scheme_code" jdbcType="VARCHAR"/>
+        <result property="superviseDomainName" column="supervise_domain_name" jdbcType="VARCHAR"/>
+        <result property="schemeName" column="scheme_name" jdbcType="VARCHAR"/>
+        <result property="schemeTopicNum" column="scheme_topic_num" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
 
     <sql id="Base_Column_List">
         id,scheme_code,supervise_domain_id,
@@ -27,4 +37,21 @@
         created_by,create_time,updated_by,
         update_time
     </sql>
+
+    <select id="pageList" resultMap="Base2ResultMap">
+        SELECT sts.id ,sts.scheme_code ,sts.scheme_name ,ssd.supervise_domain_name ,
+               sts.scheme_topic_num ,sts.create_time ,sts.update_time ,sts.status
+        FROM store_tour_scheme sts
+                 left join store_supervise_domain ssd
+                           on sts.supervise_domain_id = ssd.id
+        <where>
+            sts.deleted = 0
+            <if test="query.schemeName != null and query.schemeName != ''">
+                AND sts.scheme_name LIKE CONCAT('%',#{query.schemeName},'%')
+            </if>
+            <if test="query.status != null and query.status != ''">
+                AND sts.status = #{query.schemeName}
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -49,7 +49,7 @@
                            on ssi.store_id = si.id
                  LEFT JOIN store_supervise_domain ssd
                            on ssi.supervise_domain_id  = ssd.id
-                LEFT JOIN store_tour_scheme sts
+                 LEFT JOIN store_tour_scheme sts
                             on sts.id = ssi.scheme_id
         <where>
             <if test="query.bandName != null and query.bandName != ''">

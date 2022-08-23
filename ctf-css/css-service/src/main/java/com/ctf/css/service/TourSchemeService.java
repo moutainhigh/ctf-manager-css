@@ -1,7 +1,10 @@
 package com.ctf.css.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ctf.css.pojo.entity.TourScheme;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ctf.css.pojo.query.TourSchemePageQuery;
+import com.ctf.css.pojo.vo.ex.TourSchemeVO;
 
 /**
 * @author zhangyizheng
@@ -10,4 +13,24 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface TourSchemeService extends IService<TourScheme> {
 
+    /**
+     * 方案管理-分页列表
+     * @param queryParams 分页条件
+     * @return
+     */
+    Page<TourSchemeVO> pageTourScheme(TourSchemePageQuery queryParams);
+
+    /**
+     * 方案管理-预览
+     * @param id
+     * @return
+     */
+    TourSchemeVO getOneById(Long id);
+
+    /**
+     * 方案管理-删除
+     * @param id 方案id
+     * @return
+     */
+    boolean deleteOne(Long id);
 }
