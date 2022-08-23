@@ -60,7 +60,7 @@
                  LEFT JOIN user_info ui
                            on sis.supervise_id  = ui.id
                 LEFT JOIN store_tour_scheme sts
-                            on sts.id = ssi.scheme_id
+                            on sts.id = sis.scheme_id
         <where>
             sis.deleted = 0
             <if test="query.keywords != null and query.keywords != ''">
