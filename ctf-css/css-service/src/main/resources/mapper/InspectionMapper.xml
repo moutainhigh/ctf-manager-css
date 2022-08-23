@@ -57,8 +57,10 @@
                            on sis.store_id = si.id
                  LEFT JOIN store_supervise_domain ssd
                            on sis.supervise_domain_id  = ssd.id
-                 LEFT JOIN user_info ui
-                           on sis.supervise_id  = ui.id
+                LEFT JOIN store_tour_supervisor sts2
+                          on sts2.id = sis.supervise_id
+                LEFT JOIN user_info ui
+                          on sts2.user_id = ui.id
                 LEFT JOIN store_tour_scheme sts
                             on sts.id = sis.scheme_id
         <where>
